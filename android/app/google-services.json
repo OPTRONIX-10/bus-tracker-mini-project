@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "201899257565",
+    "project_id": "mini-project-bus-tracker",
+    "storage_bucket": "mini-project-bus-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201899257565:android:84add54fd6baa2973c7534",
+        "android_client_info": {
+          "package_name": "com.example.mini_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCliVowBBObT3Z_E980GubvqQwbtGfy4LI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

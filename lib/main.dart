@@ -1,3 +1,4 @@
+import 'package:dotenv/dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project/application/auth/auth_bloc.dart';
@@ -15,7 +16,7 @@ import 'package:mini_project/presentation/home/studenthome_screen/student_home_s
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  //await DotEnv().load([file = '.env']);
   await configureInjuction();
 
   await Firebase.initializeApp(
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Tracker',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

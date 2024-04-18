@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -33,19 +34,18 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
 
   TextEditingController _passwordController = TextEditingController();
 
-  late dynamic _image;
   AuthRepo _auth = AuthRepo();
+  XFile? _imageFile;
+  final ImagePicker _picker = ImagePicker();
 
-  _selectedGalleryImage() async {
-    final image = await _auth.pickProfileImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _image = image;
-      });
-    }
-  }
-
-  
+  // _selectedGalleryImage() async {
+  //   final image = await _auth.pickProfileImage(source: ImageSource.gallery);
+  //   if (image != null) {
+  //     setState(() {
+  //       _image = image;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,26 +68,26 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        await _selectedGalleryImage();
-                        log(_image);
-                      },
-                      child: CircleAvatar(
-                          radius: 100,
-                          child: //_image == null
-                              Icon(
-                            Icons.person,
-                            size: 100,
-                          )
-                          // : Image.file(
-                          //     _image,
-                          //     fit: BoxFit.cover,
-                          //   )
-                          ),
-                    ),
-                    SizedBox(height: 20),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     takePhoto(ImageSource.gallery);
+                    //   } //_selectedGalleryImage(),
+                    //   ,
+                    //   child: CircleAvatar(
+                    //     radius: 100,
+                    //     backgroundColor: (_imageFile == null)
+                    //         ? Color.fromRGBO(235, 238, 243, 1)
+                    //         : null,
+                    //     backgroundImage: (_imageFile == null)
+                    //         ? null
+                    //         : _imageFile!.path != null
+                    //             ? FileImage(File(_imageFile!.path))
+                    //             : null,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
                     TextFormField(
+                      controller: _nameController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Name is required';
@@ -102,6 +102,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
+                      controller: _phoneNoController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Phone Number is required';
@@ -116,6 +117,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
+                      controller: _emailController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Email is required';
@@ -133,6 +135,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                         valueListenable: _isObscure,
                         builder: (context, value, child) {
                           return TextFormField(
+                            controller: _passwordController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Password is required';
@@ -161,8 +164,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                           listener: (context, state) {
                             state.authFailureOrSuccess.fold(() {}, (a) {
                               a.fold((l) {
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //     errorMessage(context, l.toString()));
+                                log(l.toString());
                               }, (r) {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     staffHomePage, (route) => false);
@@ -173,13 +175,12 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                             return ElevatedButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    context.read<AuthBloc>().add(
-                                        AuthEvent.staffSignUp(
-                                            email: _emailController.text,
-                                            password: _passwordController.text,
-                                            image: null,
-                                            phone: _phoneNoController.text,
-                                            name: _nameController.text));
+                                    context
+                                        .read<AuthBloc>()
+                                        .add(AuthEvent.studentSignUp(
+                                          email: _emailController.text,
+                                          password: _passwordController.text,
+                                        ));
                                   }
                                 },
                                 child: state.isLoading
@@ -205,5 +206,14 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
         );
       }),
     );
+  }
+
+  void takePhoto(ImageSource gallery) async {
+    final pickedFile = await _picker.pickImage(
+      source: gallery,
+    );
+    setState(() {
+      _imageFile = pickedFile;
+    });
   }
 }

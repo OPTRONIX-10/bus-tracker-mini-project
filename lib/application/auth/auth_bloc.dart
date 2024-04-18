@@ -34,30 +34,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
     });
 
-    on<_StaffSignUp>((event, emit) async {
-      emit(state.copyWith(
-        isLoading: true,
-      ));
-      final responce = await _authRepo.staffSignup(
-        image: event.image,
-        phone: event.phone,
-        name: event.name,
-        email: event.email,
-        password: event.password,
-      );
-      await responce.fold((failure) {
-        emit(state.copyWith(
-          authFailureOrSuccess: some(left(failure)),
-          isLoading: false,
-        ));
-      }, (sucess) async {
-        await _authRepo.registerSharedPref(sucess);
-        emit(state.copyWith(
-          authFailureOrSuccess: some(right(sucess)),
-          isLoading: false,
-        ));
-      });
-    });
+    // on<_StaffSignUp>((event, emit) async {
+    //   emit(state.copyWith(
+    //     isLoading: true,
+    //   ));
+    //   final responce = await _authRepo.staffSignup(
+    //     // image: event.image,
+    //     // phone: event.phone,
+    //     // name: event.name,
+    //     email: event.email,
+    //     password: event.password,
+    //   );
+    //   await responce.fold((failure) {
+    //     emit(state.copyWith(
+    //       authFailureOrSuccess: some(left(failure)),
+    //       isLoading: false,
+    //     ));
+    //   }, (sucess) async {
+    //     await _authRepo.registerSharedPref(sucess);
+    //     emit(state.copyWith(
+    //       authFailureOrSuccess: some(right(sucess)),
+    //       isLoading: false,
+    //     ));
+    //   });
+    // });
 
     on<_StudentSignUp>((event, emit) async {
       emit(state.copyWith(

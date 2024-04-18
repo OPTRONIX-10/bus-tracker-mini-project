@@ -15,43 +15,44 @@ class AuthRepo implements IAuthRepo {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _storage = FirebaseStorage.instance;
   final _firestore = FirebaseFirestore.instance;
-  @override
-  Future<Either<MainFailure, String>> staffSignup(
-      {required dynamic image,
-      required String phone,
-      required String name,
-      required String email,
-      required String password}) async {
-    try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+  // @override
+  // Future<Either<MainFailure, String>> staffSignup(
+  //     {
+  //     //   required dynamic image,
+  //     // required String phone,
+  //     // required String name,
+  //     required String email,
+  //     required String password}) async {
+  //   try {
+  //     UserCredential userCredential =
+  //         await _auth.createUserWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
 
-      final profileImageUrl = await uploadProfileImageToStorage(image: image);
+  //   //  final profileImageUrl = await uploadProfileImageToStorage(image: image);
 
-      if (userCredential.user != null) {
-        await _firestore
-            .collection('staffdetails')
-            .doc(userCredential.user!.uid)
-            .set({
-          'buyserId': userCredential.user!.uid,
-          'name': name,
-          'email': email,
-          'phone': phone,
-          'profileImage': profileImageUrl
-        });
+  //     if (userCredential.user != null) {
+  //       // await _firestore
+  //       //     .collection('staffdetails')
+  //       //     .doc(userCredential.user!.uid)
+  //       //     .set({
+  //       //   'buyserId': userCredential.user!.uid,
+  //       //   'name': name,
+  //       //   'email': email,
+  //       //   'phone': phone,
+  //       //   'profileImage': profileImageUrl
+  //       // });
 
-        return right(userCredential.user!.uid);
-      } else {
-        return left(
-            const MainFailure.firebaseFailure('User registration failed.'));
-      }
-    } catch (e) {
-      return left(MainFailure.firebaseFailure(e.toString()));
-    }
-  }
+  //       return right(userCredential.user!.uid);
+  //     } else {
+  //       return left(
+  //           const MainFailure.firebaseFailure('User registration failed.'));
+  //     }
+  //   } catch (e) {
+  //     return left(MainFailure.firebaseFailure(e.toString()));
+  //   }
+  // }
 
   @override
   Future<Either<MainFailure, String>> studentSignup(

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mini_project/application/auth/auth_bloc.dart';
+import 'package:mini_project/application/auth/auth/auth_bloc.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 
 class StudentHomePage extends StatefulWidget {

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -7,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mini_project/application/auth/auth_bloc.dart';
+import 'package:mini_project/application/auth/auth/auth_bloc.dart';
+import 'package:mini_project/application/auth/profile_photo/profile_photo_bloc.dart';
 import 'package:mini_project/domain/constants/constants.dart';
 import 'package:mini_project/domain/routes/routes.dart';
-import 'package:mini_project/infrastructure/auth/auth_repo.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/footer.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/header_text_widget.dart';
 
@@ -34,18 +33,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
 
   TextEditingController _passwordController = TextEditingController();
 
-  AuthRepo _auth = AuthRepo();
-  XFile? _imageFile;
-  final ImagePicker _picker = ImagePicker();
-
-  // _selectedGalleryImage() async {
-  //   final image = await _auth.pickProfileImage(source: ImageSource.gallery);
-  //   if (image != null) {
-  //     setState(() {
-  //       _image = image;
-  //     });
-  //   }
-  // }
+  dynamic _imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -68,24 +56,66 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     takePhoto(ImageSource.gallery);
-                    //   } //_selectedGalleryImage(),
-                    //   ,
-                    //   child: CircleAvatar(
-                    //     radius: 100,
-                    //     backgroundColor: (_imageFile == null)
-                    //         ? Color.fromRGBO(235, 238, 243, 1)
-                    //         : null,
-                    //     backgroundImage: (_imageFile == null)
-                    //         ? null
-                    //         : _imageFile!.path != null
-                    //             ? FileImage(File(_imageFile!.path))
-                    //             : null,
-                    //   ),
-                    // ),
-                    // SizedBox(height: 20),
+                    BlocBuilder<ProfilePhotoBloc, ProfilePhotoState>(
+                      builder: (context, state) {
+                        return state.photoSelected.fold(() {
+                          return GestureDetector(
+                              onTap: () {
+                                context.read<ProfilePhotoBloc>().add(
+                                    ProfilePhotoEvent.pickedPhoto(
+                                        source: ImageSource.gallery));
+                              },
+                              child: CircleAvatar(
+                                radius: 100,
+                                child: (_imageFile == null)
+                                    ? Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.person,
+                                            size: 100,
+                                          ),
+                                          Text('Add Image'),
+                                        ],
+                                      )
+                                    : null,
+                              ));
+                        }, (a) {
+                          return a.fold((l) {
+                            return Text(l.toString());
+                          }, (r) {
+                            _imageFile = r;
+                            return GestureDetector(
+                                onTap: () {
+                                  context.read<ProfilePhotoBloc>().add(
+                                      ProfilePhotoEvent.pickedPhoto(
+                                          source: ImageSource.gallery));
+                                },
+                                child: CircleAvatar(
+                                  radius: 100,
+                                  backgroundImage: state.isLoading
+                                      ? null
+                                      : MemoryImage(_imageFile),
+                                  child: (_imageFile == null)
+                                      ? Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.person,
+                                              size: 100,
+                                            ),
+                                            Text('Add Image'),
+                                          ],
+                                        )
+                                      : null,
+                                ));
+                          });
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20),
                     TextFormField(
                       controller: _nameController,
                       validator: (value) {
@@ -167,7 +197,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                                 log(l.toString());
                               }, (r) {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
-                                    staffHomePage, (route) => false);
+                                    staffRouteSelectionPage, (route) => false);
                               });
                             });
                           },
@@ -177,9 +207,12 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                                   if (_formKey.currentState!.validate()) {
                                     context
                                         .read<AuthBloc>()
-                                        .add(AuthEvent.studentSignUp(
+                                        .add(AuthEvent.staffSignUp(
                                           email: _emailController.text,
                                           password: _passwordController.text,
+                                          image: _imageFile,
+                                          phone: _phoneNoController.text,
+                                          name: _nameController.text,
                                         ));
                                   }
                                 },
@@ -206,14 +239,5 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
         );
       }),
     );
-  }
-
-  void takePhoto(ImageSource gallery) async {
-    final pickedFile = await _picker.pickImage(
-      source: gallery,
-    );
-    setState(() {
-      _imageFile = pickedFile;
-    });
   }
 }

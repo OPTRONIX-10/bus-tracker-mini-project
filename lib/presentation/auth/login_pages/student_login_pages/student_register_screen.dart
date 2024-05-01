@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mini_project/application/auth/auth_bloc.dart';
+import 'package:mini_project/application/auth/auth/auth_bloc.dart';
 import 'package:mini_project/domain/constants/constants.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/footer.dart';

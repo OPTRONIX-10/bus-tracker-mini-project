@@ -1,7 +1,9 @@
 import 'package:dotenv/dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_project/application/auth/auth_bloc.dart';
+import 'package:mini_project/application/auth/auth/auth_bloc.dart';
+import 'package:mini_project/application/auth/profile_photo/profile_photo_bloc.dart';
+import 'package:mini_project/application/home/staff/staff_home/staff_home_bloc.dart';
 import 'package:mini_project/domain/di/injectable.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/firebase_options.dart';
@@ -12,6 +14,7 @@ import 'package:mini_project/presentation/auth/login_pages/student_login_pages/s
 import 'package:mini_project/presentation/auth/startup_page/welcome_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_project/presentation/home/staff_home_screen/staff_home_screen.dart';
+import 'package:mini_project/presentation/home/staff_home_screen/staff_route_selection.dart';
 import 'package:mini_project/presentation/home/studenthome_screen/student_home_screen.dart';
 
 void main() async {
@@ -35,6 +38,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => getIt<AuthBloc>(),
         ),
+        BlocProvider<ProfilePhotoBloc>(
+          create: (context) => getIt<ProfilePhotoBloc>(),
+        ),
+        BlocProvider<StaffHomeBloc>(
+          create: (context) => getIt<StaffHomeBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -51,6 +60,7 @@ class MyApp extends StatelessWidget {
           studentLoginPage: (context) => StudentLoginScreen(),
           staffHomePage: (context) => StaffHomePage(),
           studentHomePage: (context) => StudentHomePage(),
+          staffRouteSelectionPage: (context) => RouteSelectionScreen(),
         },
       ),
     );

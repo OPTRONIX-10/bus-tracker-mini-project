@@ -20,7 +20,9 @@ mixin _$AuthEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) studentSignUp,
-    required TResult Function(String email, String password) staffSignUp,
+    required TResult Function(dynamic image, String phone, String name,
+            String email, String password)
+        staffSignUp,
     required TResult Function() signOut,
     required TResult Function() resetState,
   }) =>
@@ -29,7 +31,9 @@ mixin _$AuthEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? studentSignUp,
-    TResult? Function(String email, String password)? staffSignUp,
+    TResult? Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult? Function()? signOut,
     TResult? Function()? resetState,
   }) =>
@@ -38,7 +42,9 @@ mixin _$AuthEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? studentSignUp,
-    TResult Function(String email, String password)? staffSignUp,
+    TResult Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult Function()? signOut,
     TResult Function()? resetState,
     required TResult orElse(),
@@ -166,7 +172,9 @@ class _$SignInImpl implements _SignIn {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) studentSignUp,
-    required TResult Function(String email, String password) staffSignUp,
+    required TResult Function(dynamic image, String phone, String name,
+            String email, String password)
+        staffSignUp,
     required TResult Function() signOut,
     required TResult Function() resetState,
   }) {
@@ -178,7 +186,9 @@ class _$SignInImpl implements _SignIn {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? studentSignUp,
-    TResult? Function(String email, String password)? staffSignUp,
+    TResult? Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult? Function()? signOut,
     TResult? Function()? resetState,
   }) {
@@ -190,7 +200,9 @@ class _$SignInImpl implements _SignIn {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? studentSignUp,
-    TResult Function(String email, String password)? staffSignUp,
+    TResult Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult Function()? signOut,
     TResult Function()? resetState,
     required TResult orElse(),
@@ -329,7 +341,9 @@ class _$StudentSignUpImpl implements _StudentSignUp {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) studentSignUp,
-    required TResult Function(String email, String password) staffSignUp,
+    required TResult Function(dynamic image, String phone, String name,
+            String email, String password)
+        staffSignUp,
     required TResult Function() signOut,
     required TResult Function() resetState,
   }) {
@@ -341,7 +355,9 @@ class _$StudentSignUpImpl implements _StudentSignUp {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? studentSignUp,
-    TResult? Function(String email, String password)? staffSignUp,
+    TResult? Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult? Function()? signOut,
     TResult? Function()? resetState,
   }) {
@@ -353,7 +369,9 @@ class _$StudentSignUpImpl implements _StudentSignUp {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? studentSignUp,
-    TResult Function(String email, String password)? staffSignUp,
+    TResult Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult Function()? signOut,
     TResult Function()? resetState,
     required TResult orElse(),
@@ -423,7 +441,12 @@ abstract class _$$StaffSignUpImplCopyWith<$Res> {
           _$StaffSignUpImpl value, $Res Function(_$StaffSignUpImpl) then) =
       __$$StaffSignUpImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, String password});
+  $Res call(
+      {dynamic image,
+      String phone,
+      String name,
+      String email,
+      String password});
 }
 
 /// @nodoc
@@ -437,10 +460,25 @@ class __$$StaffSignUpImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? image = freezed,
+    Object? phone = null,
+    Object? name = null,
     Object? email = null,
     Object? password = null,
   }) {
     return _then(_$StaffSignUpImpl(
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -456,11 +494,19 @@ class __$$StaffSignUpImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$StaffSignUpImpl implements _StaffSignUp {
-  const _$StaffSignUpImpl({required this.email, required this.password});
+  const _$StaffSignUpImpl(
+      {required this.image,
+      required this.phone,
+      required this.name,
+      required this.email,
+      required this.password});
 
-//   required dynamic image,
-// required String phone,
-// required String name,
+  @override
+  final dynamic image;
+  @override
+  final String phone;
+  @override
+  final String name;
   @override
   final String email;
   @override
@@ -468,7 +514,7 @@ class _$StaffSignUpImpl implements _StaffSignUp {
 
   @override
   String toString() {
-    return 'AuthEvent.staffSignUp(email: $email, password: $password)';
+    return 'AuthEvent.staffSignUp(image: $image, phone: $phone, name: $name, email: $email, password: $password)';
   }
 
   @override
@@ -476,13 +522,17 @@ class _$StaffSignUpImpl implements _StaffSignUp {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$StaffSignUpImpl &&
+            const DeepCollectionEquality().equals(other.image, image) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(image), phone, name, email, password);
 
   @JsonKey(ignore: true)
   @override
@@ -495,11 +545,13 @@ class _$StaffSignUpImpl implements _StaffSignUp {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) studentSignUp,
-    required TResult Function(String email, String password) staffSignUp,
+    required TResult Function(dynamic image, String phone, String name,
+            String email, String password)
+        staffSignUp,
     required TResult Function() signOut,
     required TResult Function() resetState,
   }) {
-    return staffSignUp(email, password);
+    return staffSignUp(image, phone, name, email, password);
   }
 
   @override
@@ -507,11 +559,13 @@ class _$StaffSignUpImpl implements _StaffSignUp {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? studentSignUp,
-    TResult? Function(String email, String password)? staffSignUp,
+    TResult? Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult? Function()? signOut,
     TResult? Function()? resetState,
   }) {
-    return staffSignUp?.call(email, password);
+    return staffSignUp?.call(image, phone, name, email, password);
   }
 
   @override
@@ -519,13 +573,15 @@ class _$StaffSignUpImpl implements _StaffSignUp {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? studentSignUp,
-    TResult Function(String email, String password)? staffSignUp,
+    TResult Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult Function()? signOut,
     TResult Function()? resetState,
     required TResult orElse(),
   }) {
     if (staffSignUp != null) {
-      return staffSignUp(email, password);
+      return staffSignUp(image, phone, name, email, password);
     }
     return orElse();
   }
@@ -573,12 +629,15 @@ class _$StaffSignUpImpl implements _StaffSignUp {
 
 abstract class _StaffSignUp implements AuthEvent {
   const factory _StaffSignUp(
-      {required final String email,
+      {required final dynamic image,
+      required final String phone,
+      required final String name,
+      required final String email,
       required final String password}) = _$StaffSignUpImpl;
 
-//   required dynamic image,
-// required String phone,
-// required String name,
+  dynamic get image;
+  String get phone;
+  String get name;
   String get email;
   String get password;
   @JsonKey(ignore: true)
@@ -626,7 +685,9 @@ class _$SignOutImpl implements _SignOut {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) studentSignUp,
-    required TResult Function(String email, String password) staffSignUp,
+    required TResult Function(dynamic image, String phone, String name,
+            String email, String password)
+        staffSignUp,
     required TResult Function() signOut,
     required TResult Function() resetState,
   }) {
@@ -638,7 +699,9 @@ class _$SignOutImpl implements _SignOut {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? studentSignUp,
-    TResult? Function(String email, String password)? staffSignUp,
+    TResult? Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult? Function()? signOut,
     TResult? Function()? resetState,
   }) {
@@ -650,7 +713,9 @@ class _$SignOutImpl implements _SignOut {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? studentSignUp,
-    TResult Function(String email, String password)? staffSignUp,
+    TResult Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult Function()? signOut,
     TResult Function()? resetState,
     required TResult orElse(),
@@ -746,7 +811,9 @@ class _$ResetStateImpl implements _ResetState {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) studentSignUp,
-    required TResult Function(String email, String password) staffSignUp,
+    required TResult Function(dynamic image, String phone, String name,
+            String email, String password)
+        staffSignUp,
     required TResult Function() signOut,
     required TResult Function() resetState,
   }) {
@@ -758,7 +825,9 @@ class _$ResetStateImpl implements _ResetState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? studentSignUp,
-    TResult? Function(String email, String password)? staffSignUp,
+    TResult? Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult? Function()? signOut,
     TResult? Function()? resetState,
   }) {
@@ -770,7 +839,9 @@ class _$ResetStateImpl implements _ResetState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? studentSignUp,
-    TResult Function(String email, String password)? staffSignUp,
+    TResult Function(dynamic image, String phone, String name, String email,
+            String password)?
+        staffSignUp,
     TResult Function()? signOut,
     TResult Function()? resetState,
     required TResult orElse(),

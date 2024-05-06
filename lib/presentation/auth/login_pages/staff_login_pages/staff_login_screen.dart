@@ -88,7 +88,7 @@ class StaffLoginScreen extends StatelessWidget {
                                   //     errorMessage(context, l.toString()));
                                 }, (r) {
                                   Navigator.of(context).pushNamedAndRemoveUntil(
-                                      staffRouteSelectionPage, (route) => false);
+                                      staffHomePage, (route) => false);
                                 });
                               });
                             },

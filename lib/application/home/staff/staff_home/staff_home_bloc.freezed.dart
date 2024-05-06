@@ -22,6 +22,7 @@ mixin _$StaffHomeEvent {
     required TResult Function() resetLocation,
     required TResult Function() locationUpdateSuccess,
     required TResult Function() stopLocationListening,
+    required TResult Function(LocationModel location) locationUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$StaffHomeEvent {
     TResult? Function()? resetLocation,
     TResult? Function()? locationUpdateSuccess,
     TResult? Function()? stopLocationListening,
+    TResult? Function(LocationModel location)? locationUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$StaffHomeEvent {
     TResult Function()? resetLocation,
     TResult Function()? locationUpdateSuccess,
     TResult Function()? stopLocationListening,
+    TResult Function(LocationModel location)? locationUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +52,7 @@ mixin _$StaffHomeEvent {
         locationUpdateSuccess,
     required TResult Function(_StopLocationListening value)
         stopLocationListening,
+    required TResult Function(_LocationUpdated value) locationUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +61,7 @@ mixin _$StaffHomeEvent {
     TResult? Function(_ResetLocation value)? resetLocation,
     TResult? Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult? Function(_StopLocationListening value)? stopLocationListening,
+    TResult? Function(_LocationUpdated value)? locationUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +70,7 @@ mixin _$StaffHomeEvent {
     TResult Function(_ResetLocation value)? resetLocation,
     TResult Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult Function(_StopLocationListening value)? stopLocationListening,
+    TResult Function(_LocationUpdated value)? locationUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -130,6 +136,7 @@ class _$GetCurrentLocationImpl implements _GetCurrentLocation {
     required TResult Function() resetLocation,
     required TResult Function() locationUpdateSuccess,
     required TResult Function() stopLocationListening,
+    required TResult Function(LocationModel location) locationUpdated,
   }) {
     return getCurrentLocation();
   }
@@ -141,6 +148,7 @@ class _$GetCurrentLocationImpl implements _GetCurrentLocation {
     TResult? Function()? resetLocation,
     TResult? Function()? locationUpdateSuccess,
     TResult? Function()? stopLocationListening,
+    TResult? Function(LocationModel location)? locationUpdated,
   }) {
     return getCurrentLocation?.call();
   }
@@ -152,6 +160,7 @@ class _$GetCurrentLocationImpl implements _GetCurrentLocation {
     TResult Function()? resetLocation,
     TResult Function()? locationUpdateSuccess,
     TResult Function()? stopLocationListening,
+    TResult Function(LocationModel location)? locationUpdated,
     required TResult orElse(),
   }) {
     if (getCurrentLocation != null) {
@@ -169,6 +178,7 @@ class _$GetCurrentLocationImpl implements _GetCurrentLocation {
         locationUpdateSuccess,
     required TResult Function(_StopLocationListening value)
         stopLocationListening,
+    required TResult Function(_LocationUpdated value) locationUpdated,
   }) {
     return getCurrentLocation(this);
   }
@@ -180,6 +190,7 @@ class _$GetCurrentLocationImpl implements _GetCurrentLocation {
     TResult? Function(_ResetLocation value)? resetLocation,
     TResult? Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult? Function(_StopLocationListening value)? stopLocationListening,
+    TResult? Function(_LocationUpdated value)? locationUpdated,
   }) {
     return getCurrentLocation?.call(this);
   }
@@ -191,6 +202,7 @@ class _$GetCurrentLocationImpl implements _GetCurrentLocation {
     TResult Function(_ResetLocation value)? resetLocation,
     TResult Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult Function(_StopLocationListening value)? stopLocationListening,
+    TResult Function(_LocationUpdated value)? locationUpdated,
     required TResult orElse(),
   }) {
     if (getCurrentLocation != null) {
@@ -246,6 +258,7 @@ class _$ResetLocationImpl implements _ResetLocation {
     required TResult Function() resetLocation,
     required TResult Function() locationUpdateSuccess,
     required TResult Function() stopLocationListening,
+    required TResult Function(LocationModel location) locationUpdated,
   }) {
     return resetLocation();
   }
@@ -257,6 +270,7 @@ class _$ResetLocationImpl implements _ResetLocation {
     TResult? Function()? resetLocation,
     TResult? Function()? locationUpdateSuccess,
     TResult? Function()? stopLocationListening,
+    TResult? Function(LocationModel location)? locationUpdated,
   }) {
     return resetLocation?.call();
   }
@@ -268,6 +282,7 @@ class _$ResetLocationImpl implements _ResetLocation {
     TResult Function()? resetLocation,
     TResult Function()? locationUpdateSuccess,
     TResult Function()? stopLocationListening,
+    TResult Function(LocationModel location)? locationUpdated,
     required TResult orElse(),
   }) {
     if (resetLocation != null) {
@@ -285,6 +300,7 @@ class _$ResetLocationImpl implements _ResetLocation {
         locationUpdateSuccess,
     required TResult Function(_StopLocationListening value)
         stopLocationListening,
+    required TResult Function(_LocationUpdated value) locationUpdated,
   }) {
     return resetLocation(this);
   }
@@ -296,6 +312,7 @@ class _$ResetLocationImpl implements _ResetLocation {
     TResult? Function(_ResetLocation value)? resetLocation,
     TResult? Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult? Function(_StopLocationListening value)? stopLocationListening,
+    TResult? Function(_LocationUpdated value)? locationUpdated,
   }) {
     return resetLocation?.call(this);
   }
@@ -307,6 +324,7 @@ class _$ResetLocationImpl implements _ResetLocation {
     TResult Function(_ResetLocation value)? resetLocation,
     TResult Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult Function(_StopLocationListening value)? stopLocationListening,
+    TResult Function(_LocationUpdated value)? locationUpdated,
     required TResult orElse(),
   }) {
     if (resetLocation != null) {
@@ -364,6 +382,7 @@ class _$LocationUpdateSuccessImpl implements _LocationUpdateSuccess {
     required TResult Function() resetLocation,
     required TResult Function() locationUpdateSuccess,
     required TResult Function() stopLocationListening,
+    required TResult Function(LocationModel location) locationUpdated,
   }) {
     return locationUpdateSuccess();
   }
@@ -375,6 +394,7 @@ class _$LocationUpdateSuccessImpl implements _LocationUpdateSuccess {
     TResult? Function()? resetLocation,
     TResult? Function()? locationUpdateSuccess,
     TResult? Function()? stopLocationListening,
+    TResult? Function(LocationModel location)? locationUpdated,
   }) {
     return locationUpdateSuccess?.call();
   }
@@ -386,6 +406,7 @@ class _$LocationUpdateSuccessImpl implements _LocationUpdateSuccess {
     TResult Function()? resetLocation,
     TResult Function()? locationUpdateSuccess,
     TResult Function()? stopLocationListening,
+    TResult Function(LocationModel location)? locationUpdated,
     required TResult orElse(),
   }) {
     if (locationUpdateSuccess != null) {
@@ -403,6 +424,7 @@ class _$LocationUpdateSuccessImpl implements _LocationUpdateSuccess {
         locationUpdateSuccess,
     required TResult Function(_StopLocationListening value)
         stopLocationListening,
+    required TResult Function(_LocationUpdated value) locationUpdated,
   }) {
     return locationUpdateSuccess(this);
   }
@@ -414,6 +436,7 @@ class _$LocationUpdateSuccessImpl implements _LocationUpdateSuccess {
     TResult? Function(_ResetLocation value)? resetLocation,
     TResult? Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult? Function(_StopLocationListening value)? stopLocationListening,
+    TResult? Function(_LocationUpdated value)? locationUpdated,
   }) {
     return locationUpdateSuccess?.call(this);
   }
@@ -425,6 +448,7 @@ class _$LocationUpdateSuccessImpl implements _LocationUpdateSuccess {
     TResult Function(_ResetLocation value)? resetLocation,
     TResult Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult Function(_StopLocationListening value)? stopLocationListening,
+    TResult Function(_LocationUpdated value)? locationUpdated,
     required TResult orElse(),
   }) {
     if (locationUpdateSuccess != null) {
@@ -482,6 +506,7 @@ class _$StopLocationListeningImpl implements _StopLocationListening {
     required TResult Function() resetLocation,
     required TResult Function() locationUpdateSuccess,
     required TResult Function() stopLocationListening,
+    required TResult Function(LocationModel location) locationUpdated,
   }) {
     return stopLocationListening();
   }
@@ -493,6 +518,7 @@ class _$StopLocationListeningImpl implements _StopLocationListening {
     TResult? Function()? resetLocation,
     TResult? Function()? locationUpdateSuccess,
     TResult? Function()? stopLocationListening,
+    TResult? Function(LocationModel location)? locationUpdated,
   }) {
     return stopLocationListening?.call();
   }
@@ -504,6 +530,7 @@ class _$StopLocationListeningImpl implements _StopLocationListening {
     TResult Function()? resetLocation,
     TResult Function()? locationUpdateSuccess,
     TResult Function()? stopLocationListening,
+    TResult Function(LocationModel location)? locationUpdated,
     required TResult orElse(),
   }) {
     if (stopLocationListening != null) {
@@ -521,6 +548,7 @@ class _$StopLocationListeningImpl implements _StopLocationListening {
         locationUpdateSuccess,
     required TResult Function(_StopLocationListening value)
         stopLocationListening,
+    required TResult Function(_LocationUpdated value) locationUpdated,
   }) {
     return stopLocationListening(this);
   }
@@ -532,6 +560,7 @@ class _$StopLocationListeningImpl implements _StopLocationListening {
     TResult? Function(_ResetLocation value)? resetLocation,
     TResult? Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult? Function(_StopLocationListening value)? stopLocationListening,
+    TResult? Function(_LocationUpdated value)? locationUpdated,
   }) {
     return stopLocationListening?.call(this);
   }
@@ -543,6 +572,7 @@ class _$StopLocationListeningImpl implements _StopLocationListening {
     TResult Function(_ResetLocation value)? resetLocation,
     TResult Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
     TResult Function(_StopLocationListening value)? stopLocationListening,
+    TResult Function(_LocationUpdated value)? locationUpdated,
     required TResult orElse(),
   }) {
     if (stopLocationListening != null) {
@@ -557,11 +587,168 @@ abstract class _StopLocationListening implements StaffHomeEvent {
 }
 
 /// @nodoc
+abstract class _$$LocationUpdatedImplCopyWith<$Res> {
+  factory _$$LocationUpdatedImplCopyWith(_$LocationUpdatedImpl value,
+          $Res Function(_$LocationUpdatedImpl) then) =
+      __$$LocationUpdatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({LocationModel location});
+}
+
+/// @nodoc
+class __$$LocationUpdatedImplCopyWithImpl<$Res>
+    extends _$StaffHomeEventCopyWithImpl<$Res, _$LocationUpdatedImpl>
+    implements _$$LocationUpdatedImplCopyWith<$Res> {
+  __$$LocationUpdatedImplCopyWithImpl(
+      _$LocationUpdatedImpl _value, $Res Function(_$LocationUpdatedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? location = null,
+  }) {
+    return _then(_$LocationUpdatedImpl(
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LocationModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LocationUpdatedImpl implements _LocationUpdated {
+  const _$LocationUpdatedImpl({required this.location});
+
+  @override
+  final LocationModel location;
+
+  @override
+  String toString() {
+    return 'StaffHomeEvent.locationUpdated(location: $location)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LocationUpdatedImpl &&
+            (identical(other.location, location) ||
+                other.location == location));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, location);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LocationUpdatedImplCopyWith<_$LocationUpdatedImpl> get copyWith =>
+      __$$LocationUpdatedImplCopyWithImpl<_$LocationUpdatedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCurrentLocation,
+    required TResult Function() resetLocation,
+    required TResult Function() locationUpdateSuccess,
+    required TResult Function() stopLocationListening,
+    required TResult Function(LocationModel location) locationUpdated,
+  }) {
+    return locationUpdated(location);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCurrentLocation,
+    TResult? Function()? resetLocation,
+    TResult? Function()? locationUpdateSuccess,
+    TResult? Function()? stopLocationListening,
+    TResult? Function(LocationModel location)? locationUpdated,
+  }) {
+    return locationUpdated?.call(location);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCurrentLocation,
+    TResult Function()? resetLocation,
+    TResult Function()? locationUpdateSuccess,
+    TResult Function()? stopLocationListening,
+    TResult Function(LocationModel location)? locationUpdated,
+    required TResult orElse(),
+  }) {
+    if (locationUpdated != null) {
+      return locationUpdated(location);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCurrentLocation value) getCurrentLocation,
+    required TResult Function(_ResetLocation value) resetLocation,
+    required TResult Function(_LocationUpdateSuccess value)
+        locationUpdateSuccess,
+    required TResult Function(_StopLocationListening value)
+        stopLocationListening,
+    required TResult Function(_LocationUpdated value) locationUpdated,
+  }) {
+    return locationUpdated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
+    TResult? Function(_ResetLocation value)? resetLocation,
+    TResult? Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
+    TResult? Function(_StopLocationListening value)? stopLocationListening,
+    TResult? Function(_LocationUpdated value)? locationUpdated,
+  }) {
+    return locationUpdated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCurrentLocation value)? getCurrentLocation,
+    TResult Function(_ResetLocation value)? resetLocation,
+    TResult Function(_LocationUpdateSuccess value)? locationUpdateSuccess,
+    TResult Function(_StopLocationListening value)? stopLocationListening,
+    TResult Function(_LocationUpdated value)? locationUpdated,
+    required TResult orElse(),
+  }) {
+    if (locationUpdated != null) {
+      return locationUpdated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LocationUpdated implements StaffHomeEvent {
+  const factory _LocationUpdated({required final LocationModel location}) =
+      _$LocationUpdatedImpl;
+
+  LocationModel get location;
+  @JsonKey(ignore: true)
+  _$$LocationUpdatedImplCopyWith<_$LocationUpdatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$StaffHomeState {
   bool get isLoading => throw _privateConstructorUsedError;
   Option<Either<MainFailure, LatLng>> get getCoordinates =>
       throw _privateConstructorUsedError;
-  bool get locationUpdateSuccess => throw _privateConstructorUsedError;
+  Option<Either<MainFailure, LocationModel>> get getLocationModel =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $StaffHomeStateCopyWith<StaffHomeState> get copyWith =>
@@ -577,7 +764,7 @@ abstract class $StaffHomeStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       Option<Either<MainFailure, LatLng>> getCoordinates,
-      bool locationUpdateSuccess});
+      Option<Either<MainFailure, LocationModel>> getLocationModel});
 }
 
 /// @nodoc
@@ -595,7 +782,7 @@ class _$StaffHomeStateCopyWithImpl<$Res, $Val extends StaffHomeState>
   $Res call({
     Object? isLoading = null,
     Object? getCoordinates = null,
-    Object? locationUpdateSuccess = null,
+    Object? getLocationModel = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -606,10 +793,10 @@ class _$StaffHomeStateCopyWithImpl<$Res, $Val extends StaffHomeState>
           ? _value.getCoordinates
           : getCoordinates // ignore: cast_nullable_to_non_nullable
               as Option<Either<MainFailure, LatLng>>,
-      locationUpdateSuccess: null == locationUpdateSuccess
-          ? _value.locationUpdateSuccess
-          : locationUpdateSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
+      getLocationModel: null == getLocationModel
+          ? _value.getLocationModel
+          : getLocationModel // ignore: cast_nullable_to_non_nullable
+              as Option<Either<MainFailure, LocationModel>>,
     ) as $Val);
   }
 }
@@ -625,7 +812,7 @@ abstract class _$$StaffHomeStateImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       Option<Either<MainFailure, LatLng>> getCoordinates,
-      bool locationUpdateSuccess});
+      Option<Either<MainFailure, LocationModel>> getLocationModel});
 }
 
 /// @nodoc
@@ -641,7 +828,7 @@ class __$$StaffHomeStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? getCoordinates = null,
-    Object? locationUpdateSuccess = null,
+    Object? getLocationModel = null,
   }) {
     return _then(_$StaffHomeStateImpl(
       isLoading: null == isLoading
@@ -652,10 +839,10 @@ class __$$StaffHomeStateImplCopyWithImpl<$Res>
           ? _value.getCoordinates
           : getCoordinates // ignore: cast_nullable_to_non_nullable
               as Option<Either<MainFailure, LatLng>>,
-      locationUpdateSuccess: null == locationUpdateSuccess
-          ? _value.locationUpdateSuccess
-          : locationUpdateSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
+      getLocationModel: null == getLocationModel
+          ? _value.getLocationModel
+          : getLocationModel // ignore: cast_nullable_to_non_nullable
+              as Option<Either<MainFailure, LocationModel>>,
     ));
   }
 }
@@ -666,18 +853,18 @@ class _$StaffHomeStateImpl implements _StaffHomeState {
   const _$StaffHomeStateImpl(
       {required this.isLoading,
       required this.getCoordinates,
-      required this.locationUpdateSuccess});
+      required this.getLocationModel});
 
   @override
   final bool isLoading;
   @override
   final Option<Either<MainFailure, LatLng>> getCoordinates;
   @override
-  final bool locationUpdateSuccess;
+  final Option<Either<MainFailure, LocationModel>> getLocationModel;
 
   @override
   String toString() {
-    return 'StaffHomeState(isLoading: $isLoading, getCoordinates: $getCoordinates, locationUpdateSuccess: $locationUpdateSuccess)';
+    return 'StaffHomeState(isLoading: $isLoading, getCoordinates: $getCoordinates, getLocationModel: $getLocationModel)';
   }
 
   @override
@@ -689,13 +876,13 @@ class _$StaffHomeStateImpl implements _StaffHomeState {
                 other.isLoading == isLoading) &&
             (identical(other.getCoordinates, getCoordinates) ||
                 other.getCoordinates == getCoordinates) &&
-            (identical(other.locationUpdateSuccess, locationUpdateSuccess) ||
-                other.locationUpdateSuccess == locationUpdateSuccess));
+            (identical(other.getLocationModel, getLocationModel) ||
+                other.getLocationModel == getLocationModel));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, isLoading, getCoordinates, locationUpdateSuccess);
+  int get hashCode =>
+      Object.hash(runtimeType, isLoading, getCoordinates, getLocationModel);
 
   @JsonKey(ignore: true)
   @override
@@ -709,14 +896,15 @@ abstract class _StaffHomeState implements StaffHomeState {
   const factory _StaffHomeState(
       {required final bool isLoading,
       required final Option<Either<MainFailure, LatLng>> getCoordinates,
-      required final bool locationUpdateSuccess}) = _$StaffHomeStateImpl;
+      required final Option<Either<MainFailure, LocationModel>>
+          getLocationModel}) = _$StaffHomeStateImpl;
 
   @override
   bool get isLoading;
   @override
   Option<Either<MainFailure, LatLng>> get getCoordinates;
   @override
-  bool get locationUpdateSuccess;
+  Option<Either<MainFailure, LocationModel>> get getLocationModel;
   @override
   @JsonKey(ignore: true)
   _$$StaffHomeStateImplCopyWith<_$StaffHomeStateImpl> get copyWith =>

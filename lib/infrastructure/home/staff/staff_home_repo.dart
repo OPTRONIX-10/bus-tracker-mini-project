@@ -9,6 +9,7 @@ import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 import 'package:injectable/injectable.dart';
 import 'package:location/location.dart' as loc;
 import 'package:mini_project/domain/home/staff/i_staff_home_repo.dart';
+import 'package:mini_project/domain/home/staff/model/location_model.dart';
 import 'package:mini_project/domain/main_failurre/main_failure.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -106,5 +107,21 @@ class StaffHomeRepo implements IStaffHomeRepo {
     await _locationSubscription?.cancel();
 
     _locationSubscription = null;
+  }
+
+  @override
+  Stream<LocationModel> get locationStream {
+    return _firestore
+        .collection('stafflocation')
+        .doc(_auth.currentUser!.uid)
+        .snapshots()
+        .map((loactionData) => locationDataFromSnapshots(loactionData));
+  }
+
+  @override
+  LocationModel locationDataFromSnapshots(DocumentSnapshot snapshot) {
+    return LocationModel(
+        latitude: snapshot.get('latitude'),
+        longitude: snapshot.get('longitude'));
   }
 }

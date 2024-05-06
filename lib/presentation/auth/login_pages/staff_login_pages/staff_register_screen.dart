@@ -197,7 +197,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                                 log(l.toString());
                               }, (r) {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
-                                    staffRouteSelectionPage, (route) => false);
+                                    staffHomePage, (route) => false);
                               });
                             });
                           },

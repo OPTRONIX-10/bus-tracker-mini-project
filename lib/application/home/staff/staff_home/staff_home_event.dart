@@ -9,4 +9,6 @@ class StaffHomeEvent with _$StaffHomeEvent {
   const factory StaffHomeEvent.resetLocation() = _ResetLocation;
   const factory StaffHomeEvent.locationUpdateSuccess() = _LocationUpdateSuccess;
   const factory StaffHomeEvent.stopLocationListening() = _StopLocationListening;
+  const factory StaffHomeEvent.locationUpdated(
+      {required LocationModel location}) = _LocationUpdated;
 }

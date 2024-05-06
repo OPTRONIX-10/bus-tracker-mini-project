@@ -65,7 +65,7 @@ class WelcomePage extends StatelessWidget {
                                     height: constraints.maxHeight * bHeight,
                                     width: constraints.maxWidth * bWidth,
                                     child: ElevatedButton(
-                                      onPressed: () {
+                                      onPressed: () async {
                                         Navigator.of(context)
                                             .pushNamed(staffLoginPage);
                                       },

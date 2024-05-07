@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mini_project/application/auth/auth/auth_bloc.dart';
 import 'package:mini_project/application/auth/profile_photo/profile_photo_bloc.dart';
 import 'package:mini_project/application/home/staff/staff_home/staff_home_bloc.dart';
+import 'package:mini_project/application/home/student/student_home/student_home_bloc.dart';
+import 'package:mini_project/application/home/student/student_staff_detail/staff_detail_bloc.dart';
 import 'package:mini_project/domain/di/injectable.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/firebase_options.dart';
@@ -41,6 +43,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<StaffHomeBloc>(
           create: (context) => getIt<StaffHomeBloc>(),
+        ),
+        BlocProvider<StudentHomeBloc>(
+          create: (context) => getIt<StudentHomeBloc>(),
+        ),
+        BlocProvider<StaffDetailBloc>(
+          create: (context) => getIt<StaffDetailBloc>(),
         ),
       ],
       child: MaterialApp(

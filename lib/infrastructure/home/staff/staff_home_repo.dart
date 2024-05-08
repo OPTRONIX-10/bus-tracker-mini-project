@@ -124,4 +124,22 @@ class StaffHomeRepo implements IStaffHomeRepo {
         latitude: snapshot.get('latitude'),
         longitude: snapshot.get('longitude'));
   }
+
+  @override
+  Stream<Either<MainFailure, List<LocationModel>>>
+      studentLocationDataStream() {
+    try {
+      return _firestore.collection('studentlocation').snapshots().map(
+            (QuerySnapshot querySnapshot) {
+          final List<LocationModel> locations = [];
+          for (DocumentSnapshot locationData in querySnapshot.docs) {
+            locations.add(locationDataFromSnapshots(locationData));
+          }
+          return Right(locations);
+        },
+      );
+    } catch (e) {
+      return Stream.value(Left(MainFailure.serverFailure()));
+    }
+  }
 }

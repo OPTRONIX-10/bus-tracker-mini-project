@@ -11,4 +11,5 @@ class StudentHomeEvent with _$StudentHomeEvent {
   const factory StudentHomeEvent.stopLocationListening() = _StopLocationListening;
   const factory StudentHomeEvent.locationUpdated(
       {required LocationModel location}) = _LocationUpdated;
+  
 }

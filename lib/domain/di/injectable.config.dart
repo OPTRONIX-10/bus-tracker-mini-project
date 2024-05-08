@@ -15,6 +15,8 @@ import 'package:mini_project/application/auth/profile_photo/profile_photo_bloc.d
     as _i10;
 import 'package:mini_project/application/home/staff/staff_home/staff_home_bloc.dart'
     as _i11;
+import 'package:mini_project/application/home/student/bus_location/bus_location_bloc.dart'
+    as _i14;
 import 'package:mini_project/application/home/student/student_home/student_home_bloc.dart'
     as _i12;
 import 'package:mini_project/application/home/student/student_staff_detail/staff_detail_bloc.dart'
@@ -51,6 +53,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i12.StudentHomeBloc(gh<_i3.IStudentHomeRepo>()));
     gh.factory<_i13.StaffDetailBloc>(
         () => _i13.StaffDetailBloc(gh<_i3.IStudentHomeRepo>()));
+    gh.factory<_i14.BusLocationBloc>(
+        () => _i14.BusLocationBloc(gh<_i3.IStudentHomeRepo>()));
     return this;
   }
 }

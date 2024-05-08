@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_project/application/auth/auth/auth_bloc.dart';
 import 'package:mini_project/application/auth/profile_photo/profile_photo_bloc.dart';
 import 'package:mini_project/application/home/staff/staff_home/staff_home_bloc.dart';
+import 'package:mini_project/application/home/student/bus_location/bus_location_bloc.dart';
 import 'package:mini_project/application/home/student/student_home/student_home_bloc.dart';
 import 'package:mini_project/application/home/student/student_staff_detail/staff_detail_bloc.dart';
 import 'package:mini_project/domain/di/injectable.dart';
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<StaffDetailBloc>(
           create: (context) => getIt<StaffDetailBloc>(),
+        ),
+        BlocProvider<BusLocationBloc>(
+          create: (context) => getIt<BusLocationBloc>(),
         ),
       ],
       child: MaterialApp(

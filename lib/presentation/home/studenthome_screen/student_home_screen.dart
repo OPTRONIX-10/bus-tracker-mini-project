@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mini_project/application/auth/auth/auth_bloc.dart';
+import 'package:mini_project/application/home/student/bus_location/bus_location_bloc.dart';
 import 'package:mini_project/application/home/student/student_home/student_home_bloc.dart';
 import 'package:mini_project/application/home/student/student_staff_detail/staff_detail_bloc.dart';
 import 'package:mini_project/domain/constants/api_key.dart';
@@ -23,6 +25,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
   bool _updated = false;
 
   List<LatLng> polylineCoordinates = [];
+  BitmapDescriptor busLocationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor studentLocationIcon = BitmapDescriptor.defaultMarker;
 
   void getPolyPoints(LocationModel busLocation) async {
     PolylinePoints polylinePoints = PolylinePoints();
@@ -40,6 +44,23 @@ class _StudentHomePageState extends State<StudentHomePage> {
     }
   }
 
+  void setCustomMarkerIcon() {
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/bus_image.png")
+        .then(
+      (icon) {
+        busLocationIcon = icon;
+      },
+    );
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/student.png")
+        .then(
+      (icon) {
+        studentLocationIcon = icon;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     context.read<StudentHomeBloc>().add(StudentHomeEvent.getCurrentLocation());
@@ -48,6 +69,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
           .read<StudentHomeBloc>()
           .add(StudentHomeEvent.locationUpdateSuccess());
       context.read<StaffDetailBloc>().add(StaffDetailEvent.fetchStaffDetail());
+      setCustomMarkerIcon();
     });
     return Scaffold(
         backgroundColor: Colors.grey[300],
@@ -173,39 +195,59 @@ class _StudentHomePageState extends State<StudentHomePage> {
                               zoom: 18.0)));
                     }
 
-                    if (_updated) {
-                      updatedMap();
-                    }
-                    //getPolyPoints(r);
-                    return GoogleMap(
-                      myLocationButtonEnabled: true,
-                      trafficEnabled: true,
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(r.latitude, r.longitude),
-                        zoom: 18.0,
-                      ),
-                      markers: {
-                        Marker(
-                          markerId: MarkerId("currentLocation"),
-                          position: LatLng(r.latitude, r.longitude),
-                        ),
-                        Marker(
-                          markerId: MarkerId("Destination"),
-                          position: LatLng(
-                              destination.latitude, destination.longitude),
-                        ),
-                      },
-                      onMapCreated: (mapController) async {
-                        _controller.complete(mapController);
-                        _updated = true;
-                      },
-                      polylines: {
-                        Polyline(
-                          polylineId: const PolylineId("route"),
-                          points: polylineCoordinates,
-                          color: const Color(0xFF7B61FF),
-                          width: 6,
-                        ),
+                    return BlocBuilder<BusLocationBloc, BusLocationState>(
+                      builder: (context, state) {
+                        log(state.toString());
+                        return state.getBusLocationModel.fold(() {
+                          return SizedBox();
+                        }, (a) {
+                          return a.fold((l) {
+                            return Text(l.toString());
+                          }, (busLocation) {
+                            if (_updated) {
+                              updatedMap();
+                            }
+                            //getPolyPoints(busLocation);
+                            return GoogleMap(
+                              myLocationButtonEnabled: true,
+                              trafficEnabled: true,
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(r.latitude, r.longitude),
+                                zoom: 18.0,
+                              ),
+                              markers: {
+                                Marker(
+                                  markerId: MarkerId("currentLocation"),
+                                  position: LatLng(r.latitude, r.longitude),
+                                  icon: studentLocationIcon,
+                                ),
+                                Marker(
+                                  markerId: MarkerId("BusLocation"),
+                                  position: LatLng(busLocation.latitude,
+                                      busLocation.longitude),
+                                  icon: busLocationIcon,
+                                ),
+                                Marker(
+                                  markerId: MarkerId("Destination"),
+                                  position: LatLng(destination.latitude,
+                                      destination.longitude),
+                                ),
+                              },
+                              onMapCreated: (mapController) async {
+                                _controller.complete(mapController);
+                                _updated = true;
+                              },
+                              polylines: {
+                                Polyline(
+                                  polylineId: const PolylineId("route"),
+                                  points: polylineCoordinates,
+                                  color: const Color(0xFF7B61FF),
+                                  width: 6,
+                                ),
+                              },
+                            );
+                          });
+                        });
                       },
                     );
                   });

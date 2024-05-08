@@ -146,4 +146,20 @@ class StudentHomeRepo implements IStudentHomeRepo {
       return const Left(MainFailure.serverFailure());
     }
   }
+
+  @override
+  LocationModel busLocationDataFromSnapshots(DocumentSnapshot snapshot) {
+    return LocationModel(
+        latitude: snapshot.get('latitude'),
+        longitude: snapshot.get('longitude'));
+  }
+
+  @override
+  Stream<LocationModel> get busLocationStream {
+    return _firestore
+        .collection('stafflocation')
+        .doc("zxU7DYntw2dbMuDmoxjNh3snbO23")
+        .snapshots()
+        .map((loactionData) => locationDataFromSnapshots(loactionData));
+  }
 }

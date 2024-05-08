@@ -16,8 +16,7 @@ part 'student_home_bloc.freezed.dart';
 @injectable
 class StudentHomeBloc extends Bloc<StudentHomeEvent, StudentHomeState> {
   final IStudentHomeRepo _studentHomeRepo;
-  late StreamSubscription<LocationModel> _locationStreamSubscription;
-
+  late final StreamSubscription<LocationModel> _locationStreamSubscription;
   StudentHomeBloc(this._studentHomeRepo) : super(StudentHomeState.initial()) {
     _locationStreamSubscription = _studentHomeRepo.locationStream.listen(
       (location) => add(StudentHomeEvent.locationUpdated(location: location)),

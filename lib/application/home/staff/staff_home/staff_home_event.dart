@@ -11,4 +11,6 @@ class StaffHomeEvent with _$StaffHomeEvent {
   const factory StaffHomeEvent.stopLocationListening() = _StopLocationListening;
   const factory StaffHomeEvent.locationUpdated(
       {required LocationModel location}) = _LocationUpdated;
+  const factory StaffHomeEvent.getStudentLocation(
+      {required List<LocationModel> studentLocation}) = _GetStudentLocation;
 }

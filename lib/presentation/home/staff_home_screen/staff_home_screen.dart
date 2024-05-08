@@ -22,6 +22,9 @@ class StaffHomePage extends StatelessWidget {
   static const LatLng destination = LatLng(9.3173, 76.6175);
   bool _updated = false;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor studentLocationIcon = BitmapDescriptor.defaultMarker;
+
+  List<Marker> markers = [];
 
   List<LatLng> polylineCoordinates = [];
 
@@ -47,6 +50,13 @@ class StaffHomePage extends StatelessWidget {
         .then(
       (icon) {
         currentLocationIcon = icon;
+      },
+    );
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/student.png")
+        .then(
+      (icon) {
+        studentLocationIcon = icon;
       },
     );
   }
@@ -105,6 +115,7 @@ class StaffHomePage extends StatelessWidget {
               return a.fold((l) {
                 return Text(l.toString());
               }, (r) {
+                log(r.toString());
                 Future updatedMap() async {
                   final gMapController = await _controller.future;
 
@@ -120,43 +131,62 @@ class StaffHomePage extends StatelessWidget {
                 if (_updated) {
                   updatedMap();
                 }
-                //getPolyPoints(r);
-                return GoogleMap(
-                  myLocationButtonEnabled: true,
-                  trafficEnabled: true,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(r.latitude, r.longitude),
-                    zoom: 18.0,
-                  ),
-                  markers: {
-                    Marker(
-                      markerId: MarkerId("currentLocation"),
-                      icon: currentLocationIcon,
-                      position: LatLng(r.latitude, r.longitude),
-                    ),
-                    Marker(
-                      markerId: MarkerId("Destination"),
-                      position:
-                          LatLng(destination.latitude, destination.longitude),
-                    ),
-                  },
-                  onMapCreated: (mapController) async {
-                    _controller.complete(mapController);
-                    _updated = true;
-                  },
-                  polylines: {
-                    Polyline(
-                      polylineId: const PolylineId("route"),
-                      points: polylineCoordinates,
-                      color: const Color(0xFF7B61FF),
-                      width: 6,
-                    ),
-                  },
-                );
+                // getPolyPoints(r);
+                return state.getStudentLocationModel.fold(() {
+                  return SizedBox();
+                },
+                    (a) => a.fold((l) {
+                          return Text(l.toString());
+                        }, (studentLocationList) {
+                          log(studentLocationList.toString());
+                          for (var location in studentLocationList) {
+                            markers.add(
+                              Marker(
+                                markerId:
+                                    MarkerId(location.latitude.toString()),
+                                position: LatLng(
+                                    location.latitude, location.longitude),
+                                icon: studentLocationIcon,
+                              ),
+                            );
+                          }
+                          return GoogleMap(
+                            myLocationButtonEnabled: true,
+                            trafficEnabled: true,
+                            initialCameraPosition: CameraPosition(
+                              target: LatLng(r.latitude, r.longitude),
+                              zoom: 18.0,
+                            ),
+                            markers: {
+                              ...markers,
+                              Marker(
+                                markerId: MarkerId("currentLocation"),
+                                icon: currentLocationIcon,
+                                position: LatLng(r.latitude, r.longitude),
+                              ),
+                              Marker(
+                                markerId: MarkerId("Destination"),
+                                position: LatLng(destination.latitude,
+                                    destination.longitude),
+                              ),
+                            },
+                            onMapCreated: (mapController) async {
+                              _controller.complete(mapController);
+                              _updated = true;
+                            },
+                            polylines: {
+                              Polyline(
+                                polylineId: const PolylineId("route"),
+                                points: polylineCoordinates,
+                                color: const Color(0xFF7B61FF),
+                                width: 6,
+                              ),
+                            },
+                          );
+                        }));
               });
             });
           },
-        )
-        );
+        ));
   }
 }

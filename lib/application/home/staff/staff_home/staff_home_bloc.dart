@@ -17,7 +17,18 @@ part 'staff_home_bloc.freezed.dart';
 class StaffHomeBloc extends Bloc<StaffHomeEvent, StaffHomeState> {
   final IStaffHomeRepo _staffHomeRepo;
   late StreamSubscription<LocationModel> _locationStreamSubscription;
+  late StreamSubscription<Either<MainFailure, List<LocationModel>>>
+      _studentLocationStreamSubscription;
+
   StaffHomeBloc(this._staffHomeRepo) : super(StaffHomeState.initial()) {
+    _studentLocationStreamSubscription =
+        _staffHomeRepo.studentLocationDataStream().listen(
+              (location) => add(
+                StaffHomeEvent.getStudentLocation(
+                    studentLocation: location.fold((l) => [], (r) => r)),
+              ),
+            );
+
     _locationStreamSubscription = _staffHomeRepo.locationStream.listen(
       (location) => add(StaffHomeEvent.locationUpdated(location: location)),
     );
@@ -33,6 +44,20 @@ class StaffHomeBloc extends Bloc<StaffHomeEvent, StaffHomeState> {
         ));
       }
     });
+
+    on<_GetStudentLocation>((event, emit) {
+      try {
+        emit(state.copyWith(
+          getStudentLocationModel: some(right(event.studentLocation)),
+        ));
+      } catch (e) {
+        emit(state.copyWith(
+          getStudentLocationModel: some(
+              left(MainFailure.firebaseFailure('Error updating location'))),
+        ));
+      }
+    });
+
     // on<_ConvertLatLngToScreenCoordinates>((event, emit) async {
     //   emit(state.copyWith(isLoading: true));
     //   final screenCoordinates =

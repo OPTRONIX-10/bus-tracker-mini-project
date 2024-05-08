@@ -11,6 +11,8 @@ abstract class IStaffHomeRepo {
       {required GoogleMapController mapController, required LatLng position});
   Future<Either<MainFailure, void>> listenLocation();
   Stream<LocationModel> get locationStream;
+  Stream<Either<MainFailure, List<LocationModel>>> studentLocationDataStream();
+
   LocationModel locationDataFromSnapshots(DocumentSnapshot snapshot);
   Future<void> stopListening();
 }

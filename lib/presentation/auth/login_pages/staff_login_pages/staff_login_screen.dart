@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_project/application/auth/auth/auth_bloc.dart';
 import 'package:mini_project/domain/constants/constants.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/footer.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/header_text_widget.dart';
-import 'package:mini_project/presentation/auth/login_pages/common_widgets/snackbar.dart';
 import 'package:mini_project/presentation/snackbar.dart';
 
 class StaffLoginScreen extends StatelessWidget {
   StaffLoginScreen({super.key});
-  ValueNotifier<bool> _isObscure = ValueNotifier(true);
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final ValueNotifier<bool> _isObscure = ValueNotifier(true);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +28,11 @@ class StaffLoginScreen extends StatelessWidget {
                   key: _formKey,
                   child: Column(
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.topLeft,
                         child: HeaderTextWidget(text: 'Staff Login'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -51,7 +49,7 @@ class StaffLoginScreen extends StatelessWidget {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20))),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ValueListenableBuilder(
                           valueListenable: _isObscure,
                           builder: (context, value, child) {
@@ -77,7 +75,7 @@ class StaffLoginScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(20))),
                             );
                           }),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       SizedBox(
                           height: constraint.maxHeight * bHeight,
                           width: constraint.maxWidth * bWidth,
@@ -105,14 +103,14 @@ class StaffLoginScreen extends StatelessWidget {
                                     }
                                   },
                                   child: state.isLoading
-                                      ? CircularProgressIndicator()
-                                      : Text(
+                                      ? const CircularProgressIndicator()
+                                      : const Text(
                                           'Login',
                                           style: TextStyle(color: Colors.black),
                                         ));
                             },
                           )),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Footer(
                           text: "Don't have an account?",
                           buttonText: 'Register',

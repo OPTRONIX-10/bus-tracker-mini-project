@@ -12,12 +12,12 @@ part 'staff_detail_bloc.freezed.dart';
 
 @injectable
 class StaffDetailBloc extends Bloc<StaffDetailEvent, StaffDetailState> {
-  IStudentHomeRepo _studentHomeRepo;
+  final IStudentHomeRepo _studentHomeRepo;
   StaffDetailBloc(this._studentHomeRepo) : super(StaffDetailState.initial()) {
     on<_FetchStaffDetail>((event, emit) async {
       emit(state.copyWith(isLoading: true));
       final detailModel = await _studentHomeRepo.getStaffDetails();
-      await detailModel.fold((l) {
+      detailModel.fold((l) {
         emit(state.copyWith(
             isLoading: false, staffDetailsFetched: some(left(l))));
       }, (r) {

@@ -29,7 +29,7 @@ class StudentHomeBloc extends Bloc<StudentHomeEvent, StudentHomeState> {
       } catch (e) {
         emit(state.copyWith(
           getLocationModel: some(
-              left(MainFailure.firebaseFailure('Error updating location'))),
+              left(const MainFailure.firebaseFailure('Error updating location'))),
         ));
       }
     });
@@ -48,7 +48,7 @@ class StudentHomeBloc extends Bloc<StudentHomeEvent, StudentHomeState> {
         isLoading: true,
       ));
       final result = await _studentHomeRepo.getCurrentLocation();
-      await result.fold(
+      result.fold(
         (l) {
           emit(state.copyWith(
             isLoading: false,

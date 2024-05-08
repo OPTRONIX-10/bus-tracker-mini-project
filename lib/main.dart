@@ -64,12 +64,12 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (context) => const WelcomePage(),
-          staffRegisterPage: (context) => StaffRegisterScreen(),
+          staffRegisterPage: (context) => const StaffRegisterScreen(),
           staffLoginPage: (context) => StaffLoginScreen(),
           studentRegisterPage: (context) => StudentRegisterScreen(),
           studentLoginPage: (context) => StudentLoginScreen(),
           staffHomePage: (context) => StaffHomePage(),
-          studentHomePage: (context) => StudentHomePage(),
+          studentHomePage: (context) => const StudentHomePage(),
         },
       ),
     );

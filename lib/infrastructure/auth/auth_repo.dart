@@ -6,7 +6,6 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_platform_interface/src/types/image_source.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mini_project/domain/auth/i_auth_repo.dart';
 import 'package:mini_project/domain/auth/models/user_model.dart';
@@ -33,7 +32,7 @@ class AuthRepo implements IAuthRepo {
       );
 
       final profileImageUrl = await uploadProfileImageToStorage(image: image);
-      await profileImageUrl.fold((l) {
+      profileImageUrl.fold((l) {
         return left(l);
       }, (r) async {
         await _firestore
@@ -103,18 +102,18 @@ class AuthRepo implements IAuthRepo {
         UserModel.instance.uid = userCredential.user!.uid;
         return right(userCredential.user!.uid);
       } else {
-        return left(MainFailure.firebaseFailure('Sign-in failed.'));
+        return left(const MainFailure.firebaseFailure('Sign-in failed.'));
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        return left(MainFailure.firebaseFailure('User not found.'));
+        return left(const MainFailure.firebaseFailure('User not found.'));
       } else if (e.code == 'wrong-password') {
-        return left(MainFailure.firebaseFailure('Incorrect password.'));
+        return left(const MainFailure.firebaseFailure('Incorrect password.'));
       } else {
         return left(const MainFailure.firebaseFailure('Sign-in failed'));
       }
     } catch (e) {
-      return left(MainFailure.firebaseFailure("e.toString()"));
+      return left(const MainFailure.firebaseFailure("e.toString()"));
     }
   }
 
@@ -123,8 +122,8 @@ class AuthRepo implements IAuthRepo {
   @override
   Future<Either<MainFailure, dynamic>> pickProfileImage(
       {required ImageSource source}) async {
-    final _picker = ImagePicker();
-    final pickedFile = await _picker.pickImage(source: source);
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
     if (pickedFile != null) {
       final file = await pickedFile.readAsBytes();
       return right(file);

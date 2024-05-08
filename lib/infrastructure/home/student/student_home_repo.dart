@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 import 'package:injectable/injectable.dart';
 import 'package:location/location.dart' as loc;
 import 'package:mini_project/domain/home/staff/model/location_model.dart';
@@ -13,13 +12,12 @@ import 'package:mini_project/domain/home/student/i_student_home.dart';
 import 'package:mini_project/domain/home/student/model/model.dart';
 import 'package:mini_project/domain/main_failurre/main_failure.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:mini_project/infrastructure/home/staff/staff_home_repo.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @LazySingleton(as: IStudentHomeRepo)
 class StudentHomeRepo implements IStudentHomeRepo {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   StreamSubscription<loc.LocationData>? _locationSubscription;
 
   @override
@@ -46,7 +44,7 @@ class StudentHomeRepo implements IStudentHomeRepo {
             desiredAccuracy: LocationAccuracy.bestForNavigation);
 
         final currentPosition = LatLng(position.latitude, position.longitude);
-        final currentUSer = await _auth.currentUser;
+        final currentUSer = _auth.currentUser;
         if (currentUSer != null) {
           await _firestore
               .collection('studentlocation')
@@ -92,7 +90,7 @@ class StudentHomeRepo implements IStudentHomeRepo {
 
       _locationSubscription = location.onLocationChanged
           .listen((loc.LocationData currentlocation) async {
-        final currentUSer = await _auth.currentUser;
+        final currentUSer = _auth.currentUser;
         if (currentUSer != null) {
           await FirebaseFirestore.instance
               .collection('studentlocation')

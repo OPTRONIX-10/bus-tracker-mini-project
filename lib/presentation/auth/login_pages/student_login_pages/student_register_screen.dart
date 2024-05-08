@@ -5,16 +5,14 @@ import 'package:mini_project/domain/constants/constants.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/footer.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/header_text_widget.dart';
-import 'package:mini_project/presentation/auth/login_pages/common_widgets/snackbar.dart';
-import 'package:mini_project/presentation/home/studenthome_screen/student_home_screen.dart';
 import 'package:mini_project/presentation/snackbar.dart';
 
 class StudentRegisterScreen extends StatelessWidget {
   StudentRegisterScreen({super.key});
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  ValueNotifier<bool> _isObscure = ValueNotifier(true);
+  final ValueNotifier<bool> _isObscure = ValueNotifier(true);
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +28,11 @@ class StudentRegisterScreen extends StatelessWidget {
                   key: _formKey,
                   child: Column(
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.topLeft,
                         child: HeaderTextWidget(text: 'Student Register'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -51,7 +49,7 @@ class StudentRegisterScreen extends StatelessWidget {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20))),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ValueListenableBuilder(
                           valueListenable: _isObscure,
                           builder: (context, value, child) {
@@ -77,7 +75,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(20))),
                             );
                           }),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       SizedBox(
                           height: constraint.maxHeight * bHeight,
                           width: constraint.maxWidth * bWidth,
@@ -105,14 +103,14 @@ class StudentRegisterScreen extends StatelessWidget {
                                     }
                                   },
                                   child: state.isLoading
-                                      ? CircularProgressIndicator()
-                                      : Text(
+                                      ? const CircularProgressIndicator()
+                                      : const Text(
                                           'Register',
                                           style: TextStyle(color: Colors.black),
                                         ));
                             },
                           )),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Footer(
                           text: "Already have an account?",
                           buttonText: 'Login',

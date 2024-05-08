@@ -12,7 +12,7 @@ part 'profile_photo_bloc.freezed.dart';
 
 @Injectable()
 class ProfilePhotoBloc extends Bloc<ProfilePhotoEvent, ProfilePhotoState> {
-  IAuthRepo _authRepo;
+  final IAuthRepo _authRepo;
   ProfilePhotoBloc(this._authRepo) : super(ProfilePhotoState.initial()) {
     on<_PickedPhoto>((event, emit) async {
       emit(state.copyWith(isLoading: true));

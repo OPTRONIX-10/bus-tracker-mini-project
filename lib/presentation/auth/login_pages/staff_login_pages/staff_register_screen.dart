@@ -1,9 +1,5 @@
-import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mini_project/application/auth/auth/auth_bloc.dart';
@@ -15,25 +11,25 @@ import 'package:mini_project/presentation/auth/login_pages/common_widgets/header
 import 'package:mini_project/presentation/snackbar.dart';
 
 class StaffRegisterScreen extends StatefulWidget {
-  StaffRegisterScreen({super.key});
+  const StaffRegisterScreen({super.key});
 
   @override
   State<StaffRegisterScreen> createState() => _StaffRegisterScreenState();
 }
 
 class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
-  ValueNotifier<bool> _isObscure = ValueNotifier(true);
+  final ValueNotifier<bool> _isObscure = ValueNotifier(true);
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
-  TextEditingController _phoneNoController = TextEditingController();
+  final TextEditingController _phoneNoController = TextEditingController();
 
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _vehicleController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _vehicleController = TextEditingController();
 
   dynamic _imageFile;
 
@@ -51,11 +47,11 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    Align(
+                    const Align(
                       alignment: Alignment.topLeft,
                       child: HeaderTextWidget(text: 'Staff Register'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     BlocBuilder<ProfilePhotoBloc, ProfilePhotoState>(
@@ -64,13 +60,13 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                           return GestureDetector(
                               onTap: () {
                                 context.read<ProfilePhotoBloc>().add(
-                                    ProfilePhotoEvent.pickedPhoto(
+                                    const ProfilePhotoEvent.pickedPhoto(
                                         source: ImageSource.gallery));
                               },
                               child: CircleAvatar(
                                 radius: 100,
                                 child: (_imageFile == null)
-                                    ? Column(
+                                    ? const Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
@@ -91,7 +87,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                             return GestureDetector(
                                 onTap: () {
                                   context.read<ProfilePhotoBloc>().add(
-                                      ProfilePhotoEvent.pickedPhoto(
+                                      const ProfilePhotoEvent.pickedPhoto(
                                           source: ImageSource.gallery));
                                 },
                                 child: CircleAvatar(
@@ -100,7 +96,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                                       ? null
                                       : MemoryImage(_imageFile),
                                   child: (_imageFile == null)
-                                      ? Column(
+                                      ? const Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
@@ -117,7 +113,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                         });
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: _nameController,
                       validator: (value) {
@@ -132,7 +128,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20))),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: _phoneNoController,
                       validator: (value) {
@@ -147,7 +143,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20))),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: _vehicleController,
                       validator: (value) {
@@ -162,7 +158,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20))),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: _emailController,
                       validator: (value) {
@@ -177,7 +173,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20))),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ValueListenableBuilder(
                         valueListenable: _isObscure,
                         builder: (context, value, child) {
@@ -203,7 +199,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                                     borderRadius: BorderRadius.circular(20))),
                           );
                         }),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SizedBox(
                         height: constraint.maxHeight * bHeight,
                         width: constraint.maxWidth * bWidth,
@@ -237,14 +233,14 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                                   }
                                 },
                                 child: state.isLoading
-                                    ? CircularProgressIndicator()
-                                    : Text(
+                                    ? const CircularProgressIndicator()
+                                    : const Text(
                                         'Register',
                                         style: TextStyle(color: Colors.black),
                                       ));
                           },
                         )),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Footer(
                         text: "Already have an account?",
                         buttonText: 'Login',

@@ -34,13 +34,15 @@ class StaffHomeBloc extends Bloc<StaffHomeEvent, StaffHomeState> {
     );
     on<_LocationUpdated>((event, emit) {
       try {
+        log('listening');
+
         emit(state.copyWith(
           getLocationModel: some(right(event.location)),
         ));
       } catch (e) {
         emit(state.copyWith(
-          getLocationModel: some(
-              left(MainFailure.firebaseFailure('Error updating location'))),
+          getLocationModel: some(left(
+              const MainFailure.firebaseFailure('Error updating location'))),
         ));
       }
     });
@@ -52,8 +54,8 @@ class StaffHomeBloc extends Bloc<StaffHomeEvent, StaffHomeState> {
         ));
       } catch (e) {
         emit(state.copyWith(
-          getStudentLocationModel: some(
-              left(MainFailure.firebaseFailure('Error updating location'))),
+          getStudentLocationModel: some(left(
+              const MainFailure.firebaseFailure('Error updating location'))),
         ));
       }
     });
@@ -73,7 +75,7 @@ class StaffHomeBloc extends Bloc<StaffHomeEvent, StaffHomeState> {
         isLoading: true,
       ));
       final result = await _staffHomeRepo.getCurrentLocation();
-      await result.fold(
+      result.fold(
         (l) {
           emit(state.copyWith(
             isLoading: false,

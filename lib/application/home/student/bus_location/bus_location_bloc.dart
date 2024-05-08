@@ -30,7 +30,7 @@ class BusLocationBloc extends Bloc<BusLocationEvent, BusLocationState> {
       } catch (e) {
         emit(state.copyWith(
           getBusLocationModel: some(
-              left(MainFailure.firebaseFailure('Error updating location'))),
+              left(const MainFailure.firebaseFailure('Error updating location'))),
         ));
       }
     });

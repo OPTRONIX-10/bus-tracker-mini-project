@@ -28,13 +28,14 @@ class _StudentHomePageState extends State<StudentHomePage> {
   List<LatLng> polylineCoordinates = [];
   BitmapDescriptor busLocationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor studentLocationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor destinationLocationIcon = BitmapDescriptor.defaultMarker;
 
   void getPolyPoints(LocationModel busLocation) async {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       GoogleMapsApiKey,
       PointLatLng(busLocation.latitude, busLocation.longitude),
-      PointLatLng(9.3173, 76.6175),
+      const PointLatLng(9.3173, 76.6175),
     );
     if (result.points.isNotEmpty) {
       for (var point in result.points) {
@@ -60,23 +61,34 @@ class _StudentHomePageState extends State<StudentHomePage> {
         studentLocationIcon = icon;
       },
     );
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/college.png")
+        .then(
+      (icon) {
+        destinationLocationIcon = icon;
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    context.read<StudentHomeBloc>().add(StudentHomeEvent.getCurrentLocation());
+    context
+        .read<StudentHomeBloc>()
+        .add(const StudentHomeEvent.getCurrentLocation());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context
           .read<StudentHomeBloc>()
-          .add(StudentHomeEvent.locationUpdateSuccess());
-      context.read<StaffDetailBloc>().add(StaffDetailEvent.fetchStaffDetail());
+          .add(const StudentHomeEvent.locationUpdateSuccess());
+      context
+          .read<StaffDetailBloc>()
+          .add(const StaffDetailEvent.fetchStaffDetail());
       setCustomMarkerIcon();
     });
     return Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
           centerTitle: true,
-          title: Row(
+          title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('BUS LOCATION',
@@ -94,7 +106,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                   }, (r) {
                     if (r == "logout") {
                       context.read<AuthBloc>().add(
-                            AuthEvent.resetState(),
+                            const AuthEvent.resetState(),
                           );
                       Navigator.pushNamedAndRemoveUntil(
                           context, studentLoginPage, (route) => false);
@@ -104,9 +116,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
               },
               builder: (context, state) {
                 return TextButton(
-                  child: Text("Logout"),
+                  child: const Text("Logout"),
                   onPressed: () {
-                    context.read<AuthBloc>().add(AuthEvent.signOut());
+                    context.read<AuthBloc>().add(const AuthEvent.signOut());
                   },
                 );
               },
@@ -128,17 +140,17 @@ class _StudentHomePageState extends State<StudentHomePage> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 7,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: BlocBuilder<StaffDetailBloc, StaffDetailState>(
                   builder: (context, state) {
                     if (state.isLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                     return state.staffDetailsFetched.fold(() {
-                      return SizedBox();
+                      return const SizedBox();
                     }, (a) {
                       return a.fold((l) {
                         return Text(l.toString());
@@ -155,14 +167,14 @@ class _StudentHomePageState extends State<StudentHomePage> {
                               children: [
                                 Text(
                                   r.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   '+91 ${r.phone}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
@@ -179,10 +191,10 @@ class _StudentHomePageState extends State<StudentHomePage> {
             Expanded(child: BlocBuilder<StudentHomeBloc, StudentHomeState>(
               builder: (context, state) {
                 if (state.isLoading) {
-                  Center(child: CircularProgressIndicator());
+                  const Center(child: CircularProgressIndicator());
                 }
                 return state.getLocationModel.fold(() {
-                  return SizedBox();
+                  return const SizedBox();
                 }, (a) {
                   return a.fold((l) {
                     return Text(l.toString());
@@ -204,7 +216,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                       builder: (context, state) {
                         log(state.toString());
                         return state.getBusLocationModel.fold(() {
-                          return SizedBox();
+                          return const SizedBox();
                         }, (a) {
                           return a.fold((l) {
                             return Text(l.toString());
@@ -222,20 +234,21 @@ class _StudentHomePageState extends State<StudentHomePage> {
                               ),
                               markers: {
                                 Marker(
-                                  markerId: MarkerId("currentLocation"),
+                                  markerId: const MarkerId("currentLocation"),
                                   position: LatLng(r.latitude, r.longitude),
                                   icon: studentLocationIcon,
                                 ),
                                 Marker(
-                                  markerId: MarkerId("BusLocation"),
+                                  markerId: const MarkerId("BusLocation"),
                                   position: LatLng(busLocation.latitude,
                                       busLocation.longitude),
                                   icon: busLocationIcon,
                                 ),
                                 Marker(
-                                  markerId: MarkerId("Destination"),
+                                  markerId: const MarkerId("Destination"),
                                   position: LatLng(destination.latitude,
                                       destination.longitude),
+                                  icon: destinationLocationIcon,
                                 ),
                               },
                               onMapCreated: (mapController) async {

@@ -11,7 +11,7 @@ class HeaderTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
           fontSize: 40,
           fontStyle: FontStyle.italic,
           fontWeight: FontWeight.bold),

@@ -1,11 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -35,7 +30,7 @@ class StaffHomePage extends StatelessWidget {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       GoogleMapsApiKey,
       PointLatLng(busLocation.latitude, busLocation.longitude),
-      PointLatLng(9.3173, 76.6175),
+      const PointLatLng(9.3173, 76.6175),
     );
     if (result.points.isNotEmpty) {
       for (var point in result.points) {
@@ -72,15 +67,15 @@ class StaffHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<StaffHomeBloc>().add(StaffHomeEvent.getCurrentLocation());
+    context.read<StaffHomeBloc>().add(const StaffHomeEvent.getCurrentLocation());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setCustomMarkerIcon();
-      context.read<StaffHomeBloc>().add(StaffHomeEvent.locationUpdateSuccess());
+      context.read<StaffHomeBloc>().add(const StaffHomeEvent.locationUpdateSuccess());
     });
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('STUDENTS LOCATION',
+          title: const Text('STUDENTS LOCATION',
               style: TextStyle(
                   color: Colors.deepPurple, fontWeight: FontWeight.bold)),
           actions: [
@@ -93,13 +88,13 @@ class StaffHomePage extends StatelessWidget {
                   }, (r) {
                     if (r == "logout") {
                       context.read<AuthBloc>().add(
-                            AuthEvent.resetState(),
+                            const AuthEvent.resetState(),
                           );
                       context
                           .read<StaffHomeBloc>()
-                          .add(StaffHomeEvent.resetLocation());
+                          .add(const StaffHomeEvent.resetLocation());
                       context.read<StaffHomeBloc>().add(
-                            StaffHomeEvent.stopLocationListening(),
+                            const StaffHomeEvent.stopLocationListening(),
                           );
                       Navigator.pushNamedAndRemoveUntil(
                           context, staffLoginPage, (route) => false);
@@ -108,9 +103,9 @@ class StaffHomePage extends StatelessWidget {
                 });
               },
               child: IconButton(
-                icon: Icon(Icons.logout),
+                icon: const Icon(Icons.logout),
                 onPressed: () {
-                  context.read<AuthBloc>().add(AuthEvent.signOut());
+                  context.read<AuthBloc>().add(const AuthEvent.signOut());
                 },
               ),
             )
@@ -119,10 +114,10 @@ class StaffHomePage extends StatelessWidget {
         body: BlocBuilder<StaffHomeBloc, StaffHomeState>(
           builder: (context, state) {
             if (state.isLoading) {
-              Center(child: LoadingLocationScreen());
+              const Center(child: LoadingLocationScreen());
             }
             return state.getLocationModel.fold(() {
-              return SizedBox();
+              return const SizedBox();
             }, (a) {
               return a.fold((l) {
                 return Text(l.toString());
@@ -145,7 +140,7 @@ class StaffHomePage extends StatelessWidget {
                 // }
                 // getPolyPoints(r);
                 return state.getStudentLocationModel.fold(() {
-                  return SizedBox();
+                  return const SizedBox();
                 },
                     (a) => a.fold((l) {
                           return Text(l.toString());
@@ -172,12 +167,12 @@ class StaffHomePage extends StatelessWidget {
                             markers: {
                               ...markers,
                               Marker(
-                                markerId: MarkerId("currentLocation"),
+                                markerId: const MarkerId("currentLocation"),
                                 icon: currentLocationIcon,
                                 position: LatLng(r.latitude, r.longitude),
                               ),
                               Marker(
-                                markerId: MarkerId("Destination"),
+                                markerId: const MarkerId("Destination"),
                                 position: LatLng(destination.latitude,
                                     destination.longitude),
                                 icon: destinationLocationIcon,

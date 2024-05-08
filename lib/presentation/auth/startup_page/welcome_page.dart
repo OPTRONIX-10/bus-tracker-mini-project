@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mini_project/domain/constants/constants.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 
@@ -15,19 +13,19 @@ class WelcomePage extends StatelessWidget {
           child: Center(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(
+              const Text(
                 'TRACKER',
                 style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Track your Bus',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 height: constraints.maxHeight * bHeight,
                 width: constraints.maxWidth * bWidth,
@@ -36,17 +34,17 @@ class WelcomePage extends StatelessWidget {
                       showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return Container(
+                            return SizedBox(
                               height: constraints.maxHeight * 0.5,
                               width: double.infinity,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Select your Role',
+                                  const Text('Select your Role',
                                       style: TextStyle(
                                           fontSize: 35,
                                           fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   SizedBox(
                                     height: constraints.maxHeight * bHeight,
                                     width: constraints.maxWidth * bWidth,
@@ -55,12 +53,12 @@ class WelcomePage extends StatelessWidget {
                                           Navigator.of(context)
                                               .pushNamed(studentLoginPage);
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'Student',
                                           style: TextStyle(color: Colors.black),
                                         )),
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   SizedBox(
                                     height: constraints.maxHeight * bHeight,
                                     width: constraints.maxWidth * bWidth,
@@ -69,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                                         Navigator.of(context)
                                             .pushNamed(staffLoginPage);
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         'Staff',
                                         style: TextStyle(color: Colors.black),
                                       ),
@@ -80,7 +78,7 @@ class WelcomePage extends StatelessWidget {
                             );
                           });
                     },
-                    child: Text(
+                    child: const Text(
                       'Welcome',
                       style: TextStyle(color: Colors.black),
                     )),

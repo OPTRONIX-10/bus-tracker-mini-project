@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_project/application/auth/auth/auth_bloc.dart';
 import 'package:mini_project/domain/constants/constants.dart';
 import 'package:mini_project/domain/routes/routes.dart';
+import 'package:mini_project/infrastructure/home/staff/staff_home_repo.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/footer.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/header_text_widget.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/snackbar.dart';
 import 'package:mini_project/presentation/home/studenthome_screen/student_home_screen.dart';
+import 'package:mini_project/presentation/snackbar.dart';
 
 class StudentLoginScreen extends StatelessWidget {
   StudentLoginScreen({super.key});
@@ -85,8 +89,8 @@ class StudentLoginScreen extends StatelessWidget {
                             listener: (context, state) {
                               state.authFailureOrSuccess.fold(() {}, (a) {
                                 a.fold((l) {
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //    errorMessage(context, l.toString()));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      showErrorDialog(context, l.toString()));
                                 }, (r) {
                                   Navigator.of(context).pushNamedAndRemoveUntil(
                                       studentHomePage, (route) => false);
@@ -97,6 +101,7 @@ class StudentLoginScreen extends StatelessWidget {
                               return ElevatedButton(
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
+                                      log(sharedPrefvehicelId);
                                       context.read<AuthBloc>().add(
                                           AuthEvent.signIn(
                                               email: _emailController.text,

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,6 @@ import 'package:injectable/injectable.dart';
 import 'package:mini_project/domain/auth/i_auth_repo.dart';
 import 'package:mini_project/domain/auth/models/user_model.dart';
 import 'package:mini_project/domain/main_failurre/main_failure.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @LazySingleton(as: IAuthRepo)
 class AuthRepo implements IAuthRepo {
@@ -19,7 +19,8 @@ class AuthRepo implements IAuthRepo {
   final _firestore = FirebaseFirestore.instance;
   @override
   Future<Either<MainFailure, String>> staffSignup(
-      {required dynamic image,
+      {required String vehicleNumber,
+      required dynamic image,
       required String phone,
       required String name,
       required String email,
@@ -40,6 +41,7 @@ class AuthRepo implements IAuthRepo {
             .doc(userCredential.user!.uid)
             .set({
           'uid': userCredential.user!.uid,
+          'vehicleNumber': vehicleNumber,
           'name': name,
           'email': email,
           'phone': phone,
@@ -116,18 +118,7 @@ class AuthRepo implements IAuthRepo {
     }
   }
 
-  @override
-  Future<void> registerSharedPref(String uid) async {
-    final sharedPref = SharedPreferences.getInstance();
-    await sharedPref.then((value) => value.setString('uid', uid));
-  }
-
-  @override
-  Future<void> removeSharedpref() async {
-    final sharedPref = SharedPreferences.getInstance();
-    await sharedPref.then((value) => value.remove('uid'));
-    return;
-  }
+ 
 
   @override
   Future<Either<MainFailure, dynamic>> pickProfileImage(

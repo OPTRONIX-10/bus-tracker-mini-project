@@ -15,6 +15,7 @@ import 'package:mini_project/domain/constants/api_key.dart';
 import 'package:mini_project/domain/home/staff/model/location_model.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/presentation/home/staff_home_screen/widgets/loading_loaction_widget.dart';
+import 'package:mini_project/presentation/snackbar.dart';
 
 class StaffHomePage extends StatelessWidget {
   StaffHomePage({super.key});
@@ -23,6 +24,7 @@ class StaffHomePage extends StatelessWidget {
   bool _updated = false;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor studentLocationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor destinationLocationIcon = BitmapDescriptor.defaultMarker;
 
   List<Marker> markers = [];
 
@@ -59,6 +61,13 @@ class StaffHomePage extends StatelessWidget {
         studentLocationIcon = icon;
       },
     );
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/college.png")
+        .then(
+      (icon) {
+        destinationLocationIcon = icon;
+      },
+    );
   }
 
   @override
@@ -78,7 +87,10 @@ class StaffHomePage extends StatelessWidget {
             BlocListener<AuthBloc, AuthState>(
               listener: (context, state) {
                 state.authFailureOrSuccess.fold(() {}, (a) {
-                  a.fold((l) {}, (r) {
+                  a.fold((l) {
+                     ScaffoldMessenger.of(context).showSnackBar(
+                            showErrorDialog(context, l.toString()));
+                  }, (r) {
                     if (r == "logout") {
                       context.read<AuthBloc>().add(
                             AuthEvent.resetState(),
@@ -128,9 +140,9 @@ class StaffHomePage extends StatelessWidget {
                           zoom: 18.0)));
                 }
 
-                if (_updated) {
-                  updatedMap();
-                }
+                // if (_updated) {
+                //   updatedMap();
+                // }
                 // getPolyPoints(r);
                 return state.getStudentLocationModel.fold(() {
                   return SizedBox();
@@ -168,6 +180,7 @@ class StaffHomePage extends StatelessWidget {
                                 markerId: MarkerId("Destination"),
                                 position: LatLng(destination.latitude,
                                     destination.longitude),
+                                icon: destinationLocationIcon,
                               ),
                             },
                             onMapCreated: (mapController) async {

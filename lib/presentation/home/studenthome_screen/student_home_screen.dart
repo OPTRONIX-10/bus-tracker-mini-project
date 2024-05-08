@@ -11,6 +11,7 @@ import 'package:mini_project/application/home/student/student_staff_detail/staff
 import 'package:mini_project/domain/constants/api_key.dart';
 import 'package:mini_project/domain/home/staff/model/location_model.dart';
 import 'package:mini_project/domain/routes/routes.dart';
+import 'package:mini_project/presentation/snackbar.dart';
 
 class StudentHomePage extends StatefulWidget {
   const StudentHomePage({super.key});
@@ -87,7 +88,10 @@ class _StudentHomePageState extends State<StudentHomePage> {
             BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 state.authFailureOrSuccess.fold(() {}, (a) {
-                  a.fold((l) {}, (r) {
+                  a.fold((l) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(showErrorDialog(context, l.toString()));
+                  }, (r) {
                     if (r == "logout") {
                       context.read<AuthBloc>().add(
                             AuthEvent.resetState(),
@@ -183,6 +187,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                   return a.fold((l) {
                     return Text(l.toString());
                   }, (r) {
+                    log('Location: $r');
                     Future updatedMap() async {
                       final gMapController = await _controller.future;
 
@@ -204,9 +209,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
                           return a.fold((l) {
                             return Text(l.toString());
                           }, (busLocation) {
-                            if (_updated) {
-                              updatedMap();
-                            }
+                            // if (_updated) {
+                            //   updatedMap();
+                            // }
                             //getPolyPoints(busLocation);
                             return GoogleMap(
                               myLocationButtonEnabled: true,

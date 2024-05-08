@@ -13,6 +13,7 @@ import 'package:mini_project/domain/home/student/i_student_home.dart';
 import 'package:mini_project/domain/home/student/model/model.dart';
 import 'package:mini_project/domain/main_failurre/main_failure.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mini_project/infrastructure/home/staff/staff_home_repo.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @LazySingleton(as: IStudentHomeRepo)
@@ -39,6 +40,7 @@ class StudentHomeRepo implements IStudentHomeRepo {
   Future<Either<MainFailure, LatLng>> getCurrentLocation() async {
     try {
       final bool permission = await getLocationPermission();
+
       if (permission) {
         Position position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.bestForNavigation);
@@ -158,7 +160,7 @@ class StudentHomeRepo implements IStudentHomeRepo {
   Stream<LocationModel> get busLocationStream {
     return _firestore
         .collection('stafflocation')
-        .doc("zxU7DYntw2dbMuDmoxjNh3snbO23")
+        .doc('bus1')
         .snapshots()
         .map((loactionData) => locationDataFromSnapshots(loactionData));
   }

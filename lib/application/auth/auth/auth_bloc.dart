@@ -26,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           isLoading: false,
         ));
       }, (sucess) async {
-        await _authRepo.registerSharedPref(sucess);
+      
         emit(state.copyWith(
           authFailureOrSuccess: some(right(sucess)),
           isLoading: false,
@@ -43,7 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         phone: event.phone,
         name: event.name,
         email: event.email,
-        password: event.password,
+        password: event.password, vehicleNumber: event.vehicleNumber,
       );
       await responce.fold((failure) {
         emit(state.copyWith(
@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           isLoading: false,
         ));
       }, (sucess) async {
-        await _authRepo.registerSharedPref(sucess);
+       
         emit(state.copyWith(
           authFailureOrSuccess: some(right(sucess)),
           isLoading: false,
@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           isLoading: false,
         ));
       }, (sucess) async {
-        await _authRepo.registerSharedPref(sucess);
+       
         emit(state.copyWith(
           authFailureOrSuccess: some(right(sucess)),
           isLoading: false,
@@ -93,7 +93,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           isLoading: false,
         ));
       }, (sucess) async {
-        await _authRepo.removeSharedpref();
+      
         emit(state.copyWith(
           authFailureOrSuccess: Some(right('logout')),
           isLoading: false,

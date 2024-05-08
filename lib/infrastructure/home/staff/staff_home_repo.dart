@@ -14,6 +14,8 @@ import 'package:mini_project/domain/main_failurre/main_failure.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+String sharedPrefvehicelId = '';
+
 @LazySingleton(as: IStaffHomeRepo)
 class StaffHomeRepo implements IStaffHomeRepo {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -38,6 +40,7 @@ class StaffHomeRepo implements IStaffHomeRepo {
   Future<Either<MainFailure, LatLng>> getCurrentLocation() async {
     try {
       final bool permission = await getLocationPermission();
+
       if (permission) {
         Position position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.bestForNavigation);
@@ -45,8 +48,13 @@ class StaffHomeRepo implements IStaffHomeRepo {
         final currentPosition = LatLng(position.latitude, position.longitude);
         final currentUSer = await _auth.currentUser;
         if (currentUSer != null) {
-          await _firestore.collection('stafflocation').doc(currentUSer.uid).set(
-              {'latitude': position.latitude, 'longitude': position.longitude});
+          await _firestore
+              .collection('stafflocation')
+              .doc('bus1')
+              .set({
+            'latitude': position.latitude,
+            'longitude': position.longitude
+          });
           return Right(currentPosition);
         } else {
           return const Left(MainFailure.serverFailure());
@@ -88,7 +96,7 @@ class StaffHomeRepo implements IStaffHomeRepo {
         if (currentUSer != null) {
           await FirebaseFirestore.instance
               .collection('stafflocation')
-              .doc(currentUSer.uid)
+              .doc('bus1')
               .set({
             'latitude': currentlocation.latitude,
             'longitude': currentlocation.longitude,
@@ -113,7 +121,7 @@ class StaffHomeRepo implements IStaffHomeRepo {
   Stream<LocationModel> get locationStream {
     return _firestore
         .collection('stafflocation')
-        .doc(_auth.currentUser!.uid)
+        .doc('bus1')
         .snapshots()
         .map((loactionData) => locationDataFromSnapshots(loactionData));
   }
@@ -126,11 +134,10 @@ class StaffHomeRepo implements IStaffHomeRepo {
   }
 
   @override
-  Stream<Either<MainFailure, List<LocationModel>>>
-      studentLocationDataStream() {
+  Stream<Either<MainFailure, List<LocationModel>>> studentLocationDataStream() {
     try {
       return _firestore.collection('studentlocation').snapshots().map(
-            (QuerySnapshot querySnapshot) {
+        (QuerySnapshot querySnapshot) {
           final List<LocationModel> locations = [];
           for (DocumentSnapshot locationData in querySnapshot.docs) {
             locations.add(locationDataFromSnapshots(locationData));

@@ -8,6 +8,7 @@ class AuthEvent with _$AuthEvent {
       {required String email, required String password}) = _StudentSignUp;
   const factory AuthEvent.staffSignUp(
       {
+      required String vehicleNumber,
         required dynamic image,
       required String phone,
       required String name,

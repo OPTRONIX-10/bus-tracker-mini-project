@@ -12,6 +12,7 @@ import 'package:mini_project/domain/constants/constants.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/footer.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/header_text_widget.dart';
+import 'package:mini_project/presentation/snackbar.dart';
 
 class StaffRegisterScreen extends StatefulWidget {
   StaffRegisterScreen({super.key});
@@ -32,6 +33,7 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
   TextEditingController _emailController = TextEditingController();
 
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _vehicleController = TextEditingController();
 
   dynamic _imageFile;
 
@@ -147,6 +149,21 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
+                      controller: _vehicleController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Vehicle Number is required';
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                          labelText: 'Vehicle Number',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                    ),
+                    SizedBox(height: 20),
+                    TextFormField(
                       controller: _emailController,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -194,7 +211,8 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                           listener: (context, state) {
                             state.authFailureOrSuccess.fold(() {}, (a) {
                               a.fold((l) {
-                                log(l.toString());
+                                 ScaffoldMessenger.of(context).showSnackBar(
+                            showErrorDialog(context, l.toString()));
                               }, (r) {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     staffHomePage, (route) => false);
@@ -203,9 +221,9 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                           },
                           builder: (context, state) {
                             return ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    context
+                                    final sharedPrefs = context
                                         .read<AuthBloc>()
                                         .add(AuthEvent.staffSignUp(
                                           email: _emailController.text,
@@ -213,6 +231,8 @@ class _StaffRegisterScreenState extends State<StaffRegisterScreen> {
                                           image: _imageFile,
                                           phone: _phoneNoController.text,
                                           name: _nameController.text,
+                                          vehicleNumber:
+                                              _vehicleController.text,
                                         ));
                                   }
                                 },

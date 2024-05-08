@@ -7,6 +7,7 @@ import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/footer.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/header_text_widget.dart';
 import 'package:mini_project/presentation/auth/login_pages/common_widgets/snackbar.dart';
+import 'package:mini_project/presentation/snackbar.dart';
 
 class StaffLoginScreen extends StatelessWidget {
   StaffLoginScreen({super.key});
@@ -84,8 +85,8 @@ class StaffLoginScreen extends StatelessWidget {
                             listener: (context, state) {
                               state.authFailureOrSuccess.fold(() {}, (a) {
                                 a.fold((l) {
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //     errorMessage(context, l.toString()));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                            showErrorDialog(context, l.toString()));
                                 }, (r) {
                                   Navigator.of(context).pushNamedAndRemoveUntil(
                                       staffHomePage, (route) => false);

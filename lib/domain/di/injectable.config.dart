@@ -16,11 +16,11 @@ import 'package:mini_project/application/auth/profile_photo/profile_photo_bloc.d
 import 'package:mini_project/application/home/staff/staff_home/staff_home_bloc.dart'
     as _i11;
 import 'package:mini_project/application/home/student/bus_location/bus_location_bloc.dart'
-    as _i14;
-import 'package:mini_project/application/home/student/student_home/student_home_bloc.dart'
     as _i12;
-import 'package:mini_project/application/home/student/student_staff_detail/staff_detail_bloc.dart'
+import 'package:mini_project/application/home/student/student_home/student_home_bloc.dart'
     as _i13;
+import 'package:mini_project/application/home/student/student_staff_detail/staff_detail_bloc.dart'
+    as _i14;
 import 'package:mini_project/domain/auth/i_auth_repo.dart' as _i7;
 import 'package:mini_project/domain/home/staff/i_staff_home_repo.dart' as _i5;
 import 'package:mini_project/domain/home/student/i_student_home.dart' as _i3;
@@ -49,12 +49,12 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i10.ProfilePhotoBloc(gh<_i7.IAuthRepo>()));
     gh.factory<_i11.StaffHomeBloc>(
         () => _i11.StaffHomeBloc(gh<_i5.IStaffHomeRepo>()));
-    gh.factory<_i12.StudentHomeBloc>(
-        () => _i12.StudentHomeBloc(gh<_i3.IStudentHomeRepo>()));
-    gh.factory<_i13.StaffDetailBloc>(
-        () => _i13.StaffDetailBloc(gh<_i3.IStudentHomeRepo>()));
-    gh.factory<_i14.BusLocationBloc>(
-        () => _i14.BusLocationBloc(gh<_i3.IStudentHomeRepo>()));
+    gh.factory<_i12.BusLocationBloc>(
+        () => _i12.BusLocationBloc(gh<_i3.IStudentHomeRepo>()));
+    gh.factory<_i13.StudentHomeBloc>(
+        () => _i13.StudentHomeBloc(gh<_i3.IStudentHomeRepo>()));
+    gh.factory<_i14.StaffDetailBloc>(
+        () => _i14.StaffDetailBloc(gh<_i3.IStudentHomeRepo>()));
     return this;
   }
 }

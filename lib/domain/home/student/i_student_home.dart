@@ -14,7 +14,8 @@ abstract class IStudentHomeRepo {
   Stream<LocationModel> get locationStream;
   LocationModel locationDataFromSnapshots(DocumentSnapshot snapshot);
   Future<void> stopListening();
-  Stream<LocationModel> get busLocationStream;
+  Stream<LocationModel>  get busLocationStream;
   LocationModel busLocationDataFromSnapshots(DocumentSnapshot snapshot);
   Future<Either<MainFailure, StaffDetialModel>> getStaffDetails();
+
 }

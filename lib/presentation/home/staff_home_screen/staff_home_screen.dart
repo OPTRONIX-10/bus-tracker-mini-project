@@ -2,12 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mini_project/application/auth/auth/auth_bloc.dart';
 import 'package:mini_project/application/home/staff/staff_home/staff_home_bloc.dart';
-import 'package:mini_project/domain/constants/api_key.dart';
-import 'package:mini_project/domain/home/staff/model/location_model.dart';
 import 'package:mini_project/domain/routes/routes.dart';
 import 'package:mini_project/presentation/home/staff_home_screen/widgets/loading_loaction_widget.dart';
 import 'package:mini_project/presentation/snackbar.dart';
@@ -16,30 +13,14 @@ class StaffHomePage extends StatelessWidget {
   StaffHomePage({super.key});
   final Completer<GoogleMapController> _controller = Completer();
   static const LatLng destination = LatLng(9.3173, 76.6175);
-  bool _updated = false;
+  //bool _updated = false;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor studentLocationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationLocationIcon = BitmapDescriptor.defaultMarker;
 
   List<Marker> markers = [];
 
-  List<LatLng> polylineCoordinates = [];
 
-  void getPolyPoints(LocationModel busLocation) async {
-    PolylinePoints polylinePoints = PolylinePoints();
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      GoogleMapsApiKey,
-      PointLatLng(busLocation.latitude, busLocation.longitude),
-      const PointLatLng(9.3173, 76.6175),
-    );
-    if (result.points.isNotEmpty) {
-      for (var point in result.points) {
-        polylineCoordinates.add(
-          LatLng(point.latitude, point.longitude),
-        );
-      }
-    }
-  }
 
   void setCustomMarkerIcon() {
     BitmapDescriptor.fromAssetImage(
@@ -123,22 +104,22 @@ class StaffHomePage extends StatelessWidget {
                 return Text(l.toString());
               }, (r) {
                 log(r.toString());
-                Future updatedMap() async {
-                  final gMapController = await _controller.future;
+                // Future updatedMap() async {
+                //   final gMapController = await _controller.future;
 
-                  await gMapController.animateCamera(
-                      CameraUpdate.newCameraPosition(CameraPosition(
-                          target: LatLng(
-                            r.latitude,
-                            r.longitude,
-                          ),
-                          zoom: 18.0)));
-                }
+                //   await gMapController.animateCamera(
+                //       CameraUpdate.newCameraPosition(CameraPosition(
+                //           target: LatLng(
+                //             r.latitude,
+                //             r.longitude,
+                //           ),
+                //           zoom: 18.0)));
+                // }
 
                 // if (_updated) {
                 //   updatedMap();
                 // }
-                // getPolyPoints(r);
+             
                 return state.getStudentLocationModel.fold(() {
                   return const SizedBox();
                 },
@@ -180,16 +161,9 @@ class StaffHomePage extends StatelessWidget {
                             },
                             onMapCreated: (mapController) async {
                               _controller.complete(mapController);
-                              _updated = true;
+                              //_updated = true;
                             },
-                            polylines: {
-                              Polyline(
-                                polylineId: const PolylineId("route"),
-                                points: polylineCoordinates,
-                                color: const Color(0xFF7B61FF),
-                                width: 6,
-                              ),
-                            },
+                            
                           );
                         }));
               });
